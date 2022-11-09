@@ -1,4 +1,4 @@
-package ss4_object.thuc_hanh.Fan;
+package ss4_object.bai_tap.Fan;
 
 public class Fan {
     final int SLOW = 1;

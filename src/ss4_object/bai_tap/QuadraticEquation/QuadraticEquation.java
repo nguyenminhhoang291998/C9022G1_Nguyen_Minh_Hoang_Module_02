@@ -1,4 +1,4 @@
-package ss4_object.thuc_hanh.QuadraticEquation;
+package ss4_object.bai_tap.QuadraticEquation;
 
 public class QuadraticEquation {
     private double a, b, c;

@@ -1,4 +1,4 @@
-package ss4_object.thuc_hanh.Fan;
+package ss4_object.bai_tap.Fan;
 
 public class MainFan {
     public static void main(String[] args) {
