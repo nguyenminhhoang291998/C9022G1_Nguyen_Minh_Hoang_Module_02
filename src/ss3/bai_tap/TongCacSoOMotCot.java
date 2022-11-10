@@ -10,7 +10,7 @@ public class TongCacSoOMotCot {
         int row = Integer.parseInt(sc.nextLine());
         System.out.println("Nhập số cột của mảng: ");
         int column = Integer.parseInt(sc.nextLine());
-        Float[][] arr = new Float[row][column];
+        float[][] arr = new float[row][column];
 
 
         for (int i = 0; i < row; i++) {
@@ -23,7 +23,7 @@ public class TongCacSoOMotCot {
 
         System.out.println("Nhập cột muốn tính tổng: ");
         int column1 = Integer.parseInt(sc.nextLine());
-        Float sum = 0.0f;
+        float sum = 0.0f;
         for (int i = 0; i < row; i++) {
             sum+= arr[i][column1];
         }

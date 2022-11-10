@@ -21,11 +21,7 @@ public class TongCacSoODuongCheo {
 
         int sum = 0;
         for (int i = 0; i < length; i++) {
-            for (int j = 0; j < length; j++) {
-                if(i==j){
-                    sum += arr[i][j];
-                }
-            }
+                    sum += arr[i][i];
         }
         System.out.println("Tổng các số ở đường chéo là: " +sum);
     }
