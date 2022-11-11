@@ -6,5 +6,7 @@ public class Test {
         System.out.println(point.toString());
         point.move();
         System.out.println(point.toString());
+        point.move();
+        System.out.println(point.toString());
     }
 }
