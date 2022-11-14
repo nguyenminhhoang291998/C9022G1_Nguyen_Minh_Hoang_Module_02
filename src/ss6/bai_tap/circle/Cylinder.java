@@ -1,7 +1,5 @@
 package ss6.bai_tap.circle;
 
-import sss7.thuc_hanh.shape.ComparableCircle;
-
 public class Cylinder extends Circle{
     private double hight;
 
