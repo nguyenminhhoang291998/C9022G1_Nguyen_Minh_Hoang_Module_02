@@ -1,23 +1,36 @@
 package ss6.bai_tap.circle;
 
 public class Circle {
-    private double darius;
+    private double radius;
     private String color;
+    private boolean filled;
+
+    public double getRadius() {
+        return this.radius;
+    }
+
+    public Circle(double radius, String color, boolean filled) {
+        this.radius = radius;
+        this.color = color;
+        this.filled = filled;
+    }
 
     public Circle() {
     }
 
-    public Circle(double darius, String color) {
-        this.darius = darius;
+    public Circle(double radius, String color) {
+        this.radius = radius;
         this.color = color;
     }
 
-    public double getDarius() {
-        return darius;
+    public Circle(double radius) {
+        this.radius = radius;
     }
 
-    public void setDarius(double darius) {
-        this.darius = darius;
+
+
+    public void setRadius(double radius) {
+        this.radius = radius;
     }
 
     public String getColor() {
@@ -29,12 +42,12 @@ public class Circle {
     }
 
     public double getAreaCircle(){
-        return Math.PI*Math.pow(darius,2);
+        return Math.PI*Math.pow(radius,2);
     }
 
 
     public String toadd() {
-        return  "darius=" + darius +
+        return  "darius=" + radius +
                 ", color='" + color + '\'' ;
 
     }
@@ -42,9 +55,12 @@ public class Circle {
     @Override
     public String toString() {
         return "Circle{" +
-                "darius=" + darius +
+                "radius=" + radius +
                 ", color='" + color + "'"+
                 ", AreaCircle= "+getAreaCircle() +
                 '}';
     }
+
+
+
 }

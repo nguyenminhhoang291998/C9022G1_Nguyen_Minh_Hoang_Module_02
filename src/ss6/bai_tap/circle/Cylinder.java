@@ -1,5 +1,7 @@
 package ss6.bai_tap.circle;
 
+import sss7.thuc_hanh.shape.ComparableCircle;
+
 public class Cylinder extends Circle{
     private double hight;
 
@@ -17,10 +19,15 @@ public class Cylinder extends Circle{
 
     @Override
     public String toString() {
-        return "Cylinder{" +
+        return    "Cylinder{" +
                  super.toadd() + ", "+
                 "hight=" + hight +
+
                 ", VolumeCylinder= " + getVolumeCylinder() +
                 '}';
     }
+
+
+
+
 }
