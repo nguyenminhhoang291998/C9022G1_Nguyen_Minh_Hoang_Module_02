@@ -70,4 +70,8 @@ public class TennisGame {
         }
         return score.toString();
     }
+
+    public static void main(String[] args) {
+        System.out.println(getRatio(2,1));
+    }
 }
