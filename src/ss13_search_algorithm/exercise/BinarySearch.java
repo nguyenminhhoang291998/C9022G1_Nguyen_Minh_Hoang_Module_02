@@ -19,19 +19,18 @@ public class BinarySearch {
         System.out.println(Arrays.toString(array));
         System.out.println("Nhập phần tử cần tìm: ");
         int value = Integer.parseInt(scanner.nextLine());
-        System.out.println(length);
         System.out.println(binarySearch(array,0, length-1,value));
     }
 
     static String binarySearch(int[] array,int left,int right, int value){
-        while (right >= left){
-            int mid = (left + right)/2;
-            if(array[mid]== value){
-                return "Phần tử cần tìm có index " + mid;
-            }else if(array[mid]> value){
-                right = mid - 1;
+        if (right >= left){
+            int middle = (left + right)/2;
+            if(array[middle]== value){
+                return "Phần tử cần tìm có index = " + middle;
+            }else if(array[middle]> value){
+                return binarySearch(array,left, middle -1,value);
             }else {
-                left = mid +1;
+                return binarySearch(array, middle +1,right,value);
             }
         }
         return "Phần tử cần tìm không có trong mảng.";
