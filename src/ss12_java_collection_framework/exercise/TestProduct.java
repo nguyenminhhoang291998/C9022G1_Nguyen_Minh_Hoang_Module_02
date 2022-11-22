@@ -15,7 +15,7 @@ public class TestProduct {
         productManager.addProduct(product3);
 
         productManager.display();
-        productManager.removeProduct(8);
+        productManager.removeProduct(2);
         productManager.findProduct("Oi");
         productManager.sortAscending();
         productManager.sortDescending();

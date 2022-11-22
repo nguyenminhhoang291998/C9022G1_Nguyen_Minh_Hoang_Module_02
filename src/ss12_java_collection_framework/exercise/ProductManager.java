@@ -22,33 +22,22 @@ public class ProductManager {
                 product.setPrice(price);
                 System.out.println("All product after edit: ");
                 display();
-                flag = true;
-                break;
-            } else {
-                flag = false;
+                return;
             }
         }
-        if (!flag) {
-            System.out.println("Not found product.");
-        }
+        System.out.println("Not found product.");
     }
 
     public void removeProduct(int id) {
-        boolean flag = true;
         for (Product product : arrayList) {
             if (product.getId() == id) {
                 arrayList.remove(product);
                 System.out.println("All product after remove: ");
                 display();
-                flag = true;
-                break;
-            } else {
-                flag = false;
+                return;
             }
         }
-        if (!flag) {
-            System.out.println("Not found product.");
-        }
+        System.out.println("Not found product.");
     }
 
     public void display() {
@@ -58,19 +47,13 @@ public class ProductManager {
     }
 
     public void findProduct(String name) {
-        boolean flag = true;
         for (Product product : arrayList) {
             if (product.getNameProduct().equals(name)) {
-                System.out.println("Result find product: " + product.toString());
-                flag = true;
-                break;
-            } else {
-                flag = false;
+                System.out.println("Result find product: " + product);
+               return;
             }
         }
-        if (!flag) {
-            System.out.println("Not found product.");
-        }
+        System.out.println("Not found product.");
     }
 
     public void sortAscending() {
