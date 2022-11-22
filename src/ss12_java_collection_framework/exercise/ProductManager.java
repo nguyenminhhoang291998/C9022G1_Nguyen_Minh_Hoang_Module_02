@@ -42,7 +42,7 @@ public class ProductManager {
                 display();
                 flag = true;
                 break;
-            }else {
+            } else {
                 flag = false;
             }
         }
@@ -57,14 +57,14 @@ public class ProductManager {
         }
     }
 
-    public void findProduct(String name){
+    public void findProduct(String name) {
         boolean flag = true;
         for (Product product : arrayList) {
             if (product.getNameProduct().equals(name)) {
                 System.out.println("Result find product: " + product.toString());
                 flag = true;
                 break;
-            }else {
+            } else {
                 flag = false;
             }
         }
@@ -73,16 +73,16 @@ public class ProductManager {
         }
     }
 
-   public void sortAscending(){
-       ComparatorAscending comparatorAscending = new ComparatorAscending();
-       Collections.sort(arrayList, comparatorAscending);
-       System.out.println("All product after ascending: ");
-       display();
-   }
+    public void sortAscending() {
+        ComparatorAscending comparatorAscending = new ComparatorAscending();
+        Collections.sort(arrayList, comparatorAscending);
+        System.out.println("All product after ascending: ");
+        display();
+    }
 
-    public void sortDescending(){
-        ComparatorDescending comparatorIncrease = new ComparatorDescending();
-        Collections.sort(arrayList,comparatorIncrease);
+    public void sortDescending() {
+        sortAscending();
+        Collections.reverse(arrayList);
         System.out.println("All product after descending: ");
         display();
     }

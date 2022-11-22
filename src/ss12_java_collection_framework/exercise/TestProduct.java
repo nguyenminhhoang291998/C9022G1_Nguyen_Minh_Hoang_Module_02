@@ -13,11 +13,13 @@ public class TestProduct {
         productManager.addProduct(product2);
         productManager.addProduct(product4);
         productManager.addProduct(product3);
+
         productManager.display();
         productManager.removeProduct(8);
         productManager.findProduct("Oi");
         productManager.sortAscending();
         productManager.sortDescending();
+        productManager.editProduct(5);
 
     }
 
