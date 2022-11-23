@@ -3,7 +3,7 @@ package ss12_java_collection_framework.exercise;
 import java.util.*;
 
 public class ProductManager {
-    List<Product> arrayList = new LinkedList<>();
+    private List<Product> arrayList = new LinkedList<>();
 
     public void addProduct(Product product) {
         arrayList.add(product);
