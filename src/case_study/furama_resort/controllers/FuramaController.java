@@ -1,14 +1,19 @@
 package case_study.furama_resort.controllers;
 
+import case_study.furama_resort.models.person.Employee;
+import case_study.furama_resort.services.EmployeeServiceImpl;
+
 import java.util.Scanner;
 
 public class FuramaController {
 
+    Scanner scanner = new Scanner(System.in);
+    EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
     public FuramaController() {
     }
 
     public void displayMainMenu(){
-        System.out.println("Menu: \n" +
+        System.out.println("---------MENU--------- \n" +
                 "1.\tEmployee Management \n" +
                 "2.\tCustomer Management \n" +
                 "3.\tFacility Management  \n" +
@@ -20,12 +25,11 @@ public class FuramaController {
     }
 
     public void displayExtraMenu(){
-        int choice;
-        Scanner scanner = new Scanner(System.in);
-        choice = scanner.nextInt();
-        if (choice<0 || choice >6){
+        int choice = Integer.parseInt(scanner.nextLine());
+
+        while (choice<0 || choice >6){
             System.out.println("Choice not true. Enter choice again: ");
-            displayExtraMenu();
+            choice = Integer.parseInt(scanner.nextLine());
         }
 
         switch (choice){
@@ -59,6 +63,44 @@ public class FuramaController {
                 "4.\tEdit employee \n" +
                 "5.\tReturn main menu \n" +
                  "Enter choice: ");
+        employeeManagement();
+    }
+
+    public void employeeManagement(){
+        int choice = Integer.parseInt(scanner.nextLine());
+
+        while (choice<0 || choice >5){
+            System.out.println("Choice not true. Enter choice again: ");
+            choice = Integer.parseInt(scanner.nextLine());
+        }
+
+        switch (choice){
+            case 1:
+                employeeService.displayListEmployee();
+                break;
+            case 2:
+                employeeService.addToListEmployee(newEmployee());
+                displayEmployeeManagement();
+                break;
+            case 3:
+                employeeService.deleteInListEmployee(findId());
+                displayEmployeeManagement();
+                break;
+            case 4:
+                employeeService.editListEmployee(newEmployee());
+                break;
+            case 5:
+                displayMainMenu();
+                break;
+        }
+    }
+    public Employee newEmployee(){
+            return employeeService.newEmployee();
+    }
+
+    public int findId(){
+        return employeeService.findId();
+
     }
 
     public void displayCustomerManagement(){
