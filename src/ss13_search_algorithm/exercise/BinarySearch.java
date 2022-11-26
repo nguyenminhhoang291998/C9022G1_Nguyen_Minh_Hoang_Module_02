@@ -25,7 +25,7 @@ public class BinarySearch {
 
     static String binarySearch(int[] array,int left,int right, int value){
         if (right >= left){
-            int middle = left + (left + right)/2;
+            int middle = (left + right)/2;
             if(array[middle]== value){
                 return "Phần tử cần tìm có index = " + middle;
             }else if(array[middle]> value){

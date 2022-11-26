@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class EmployeeServiceImpl implements IEmployeeService {
 
     Scanner scanner = new Scanner(System.in);
+    //        FuramaController furamaController = new FuramaController();
     public static ArrayList<Employee> arrayListEmployee = new ArrayList<>();
 
     static {
@@ -26,6 +27,48 @@ public class EmployeeServiceImpl implements IEmployeeService {
         arrayListEmployee.add(employee4);
     }
 
+    public void displayEmployeeManagement() {
+        System.out.println("Employee Management: \n" +
+                "1.\tDisplay list employees \n" +
+                "2.\tAdd new employee \n" +
+                "3.\tDelete employee \n" +
+                "4.\tEdit employee \n" +
+                "5.\tReturn main menu \n" +
+                "Enter choice: ");
+        employeeManagement();
+    }
+
+    public void employeeManagement() {
+        int choice = Integer.parseInt(scanner.nextLine());
+
+        while (choice < 0 || choice > 5) {
+            System.out.println("Choice not true. Enter choice again: ");
+            choice = Integer.parseInt(scanner.nextLine());
+        }
+
+        switch (choice) {
+            case 1:
+                displayListEmployee();
+                displayEmployeeManagement();
+                break;
+            case 2:
+                addToListEmployee(newEmployee(findId(false)));
+                displayEmployeeManagement();
+                break;
+            case 3:
+                deleteInListEmployee(findId(true));
+                displayEmployeeManagement();
+                break;
+            case 4:
+                editListEmployee(newEmployee(findId(true)));
+                displayEmployeeManagement();
+                break;
+            case 5:
+//                furamaController.displayMainMenu();
+                break;
+        }
+    }
+
     public void displayListEmployee() {
         for (Employee employee : arrayListEmployee) {
             System.out.println(employee);
@@ -34,53 +77,33 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     public void addToListEmployee(Employee e) {
         if (e != null) {
-            for (Employee employee : arrayListEmployee) {
-                if (employee.getId() == e.getId()) {
-                    System.out.println("Id already exists.");
-                } else {
-                    arrayListEmployee.add(e);
-                }
-            }
+            arrayListEmployee.add(e);
         }
-
     }
 
+
     public void deleteInListEmployee(int id) {
-        if(id != -1){
-            for (Employee employee : arrayListEmployee) {
-                if (employee.getId() == id) {
-                    arrayListEmployee.remove(employee);
-                    System.out.println("Successful delete");
-                    return;
-                }
+        for (Employee employee : arrayListEmployee) {
+            if (employee.getId() == id) {
+                arrayListEmployee.remove(employee);
+                System.out.println("Successful delete.");
+                break;
             }
-            System.out.println("Id doesn't exist");
         }
     }
 
     public void editListEmployee(Employee e) {
-        if (e != null) {
-            for (Employee employee : arrayListEmployee) {
-                if (employee.getId() == e.getId()) {
-                    arrayListEmployee.remove(employee);
-                    arrayListEmployee.add(e);
-                    System.out.println("Edit successfully.");
-                    return;
-                }
+        for (Employee employee : arrayListEmployee) {
+            if (employee.getId() == e.getId()) {
+                arrayListEmployee.remove(employee);
+                arrayListEmployee.add(e);
+                System.out.println("Edit successfully.");
             }
-            System.out.println("Id doesn't exist.");
         }
     }
 
-    public Employee newEmployee() {
-        System.out.println("Enter new Id: ");
-        int newId = Integer.parseInt(scanner.nextLine());
-        for (Employee employee : arrayListEmployee) {
-            if (employee.getId() == newId) {
-                System.out.println("Id already exists.");
-                return null;
-            }
-        }
+
+    public Employee newEmployee(int id) {
         System.out.println("Enter name: ");
         String newName = scanner.nextLine();
         System.out.println("Enter year of birth: ");
@@ -95,20 +118,33 @@ public class EmployeeServiceImpl implements IEmployeeService {
         String newAddress = scanner.nextLine();
         System.out.println("Enter position: ");
         String newPosition = scanner.nextLine();
-        return new Employee(newId, newName, newYearOfBirth, newGender,
-                newNumberCard,newEmail,newAddress, newPosition);
+        return new Employee(id, newName, newYearOfBirth, newGender,
+                newNumberCard, newEmail, newAddress, newPosition);
     }
 
-    public int findId() {
-        System.out.println("Enter the id you want to find: ");
+    public int findId(boolean x) {
+        System.out.println("Enter the id: ");
         int id = Integer.parseInt(scanner.nextLine());
-        for (Employee employee : arrayListEmployee) {
-            if (employee.getId() == id) {
-                return id;
+
+            if (!x) {
+                //false, tìm đến khi không trùng
+                for (Employee employee : arrayListEmployee) {
+                    while (employee.getId() == id) {
+                        System.out.println("Id already exists. Enter again Id: ");
+                        id = Integer.parseInt(scanner.nextLine());
+                    }
+                }
+            }else {
+                // true, tìm đến khi trùng
+                for (Employee employee : arrayListEmployee) {
+                if (employee.getId() == id) {
+                    return id;
+                }
+                System.out.println("Not found id. Enter again Id: ");
+                id = Integer.parseInt(scanner.nextLine());
             }
         }
-        System.out.println("Id doesn't exist.");
-        return -1;
+        return id;
     }
 }
 

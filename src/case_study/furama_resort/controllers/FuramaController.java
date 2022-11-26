@@ -1,6 +1,5 @@
 package case_study.furama_resort.controllers;
 
-import case_study.furama_resort.models.person.Employee;
 import case_study.furama_resort.services.EmployeeServiceImpl;
 
 import java.util.Scanner;
@@ -34,7 +33,7 @@ public class FuramaController {
 
         switch (choice){
             case 1:
-                displayEmployeeManagement();
+                employeeService.displayEmployeeManagement();
                 break;
             case 2:
                 displayCustomerManagement();
@@ -55,53 +54,7 @@ public class FuramaController {
 
     }
 
-    public void displayEmployeeManagement(){
-        System.out.println("Employee Management: \n" +
-                "1.\tDisplay list employees \n" +
-                "2.\tAdd new employee \n" +
-                "3.\tDelete employee \n" +
-                "4.\tEdit employee \n" +
-                "5.\tReturn main menu \n" +
-                 "Enter choice: ");
-        employeeManagement();
-    }
 
-    public void employeeManagement(){
-        int choice = Integer.parseInt(scanner.nextLine());
-
-        while (choice<0 || choice >5){
-            System.out.println("Choice not true. Enter choice again: ");
-            choice = Integer.parseInt(scanner.nextLine());
-        }
-
-        switch (choice){
-            case 1:
-                employeeService.displayListEmployee();
-                break;
-            case 2:
-                employeeService.addToListEmployee(newEmployee());
-                displayEmployeeManagement();
-                break;
-            case 3:
-                employeeService.deleteInListEmployee(findId());
-                displayEmployeeManagement();
-                break;
-            case 4:
-                employeeService.editListEmployee(newEmployee());
-                break;
-            case 5:
-                displayMainMenu();
-                break;
-        }
-    }
-    public Employee newEmployee(){
-            return employeeService.newEmployee();
-    }
-
-    public int findId(){
-        return employeeService.findId();
-
-    }
 
     public void displayCustomerManagement(){
         System.out.println("Customer Management: \n" +
@@ -144,6 +97,7 @@ public class FuramaController {
     public static void main(String[] args) {
         FuramaController furamaController = new FuramaController();
         furamaController.displayMainMenu();
+
     }
 
 }
