@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class EmployeeServiceImpl implements IEmployeeService {
 
-    Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
     //        FuramaController furamaController = new FuramaController();
     public static ArrayList<Employee> arrayListEmployee = new ArrayList<>();
 

@@ -12,6 +12,7 @@ public class ReadAndWriteString {
     public static final String PATH_NAME = "src\\ss15_io_text_file\\data\\string.csv";
 
     public static void main(String[] args) {
+
         File file = new File(PATH_NAME);
         FileWriter fileWriter = null;
         try {
