@@ -41,4 +41,13 @@ public class Student {
     public String writeInfor() {
         return this.id + "," + this.name + "," + this.module;
     }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", module='" + module + '\'' +
+                '}';
+    }
 }

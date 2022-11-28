@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class FuramaController {
 
-    Scanner scanner = new Scanner(System.in);
-    EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
+    private final Scanner scanner = new Scanner(System.in);
+    private final EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
     public FuramaController() {
     }
 
