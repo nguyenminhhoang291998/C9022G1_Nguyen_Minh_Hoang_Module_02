@@ -8,20 +8,23 @@ import java.util.Scanner;
 public class ProductMain {
 
     private static final String PATH_FILE = "src/ss17_io_binary_file_serialization/exercise/product_management/product.csv";
-    private static int count = 0;
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Product sp1 = new Product(1, "Tao", "Trung Quoc", 23000, "N3");
-        Product sp2 = new Product(2, "Cam", "Han Quoc", 30000, "M2");
-        Product sp3 = new Product(4, "Gao", "Thai Lan", 15000, "L1");
-        addProduct(sp1);
-        addProduct(sp2);
-        System.out.println(display());
-        findProduct();
+        System.out.println(display(true));
+        Product p1 = new Product(1,"Tao","Trung Quoc",12000,"N3");
+        Product p2 = new Product(2,"Oi","Han Quoc",15000,"R2");
+        Product p3 = new Product(3,"Cam","Thai Lan",22000,"M4");
+        addProduct(p1);
+        addProduct(p2);
+        addProduct(p3);
+        System.out.println(display(true));
+        findProduct(3);
     }
 
-    private static List<Product> display() {
+    private static List<Product> display(boolean checkFileEmpty) {
         List<Product> productList = new ArrayList<>();
+
         try {
             FileInputStream fileInputStream= new FileInputStream(PATH_FILE);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
@@ -29,26 +32,25 @@ public class ProductMain {
             objectInputStream.close();
             fileInputStream.close();
         } catch (EOFException e){
-            if(count == 0){
-                count++;
-            }else {
-                System.err.println("List product is empty.");
+            if(checkFileEmpty){
+                System.out.print("List product is empty ");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
         return productList;
     }
 
     private static void addProduct(Product product) {
-        List<Product> productList = display();
-        for (Product pr : productList) {
-            if(product.getId() == pr.getId()){
-                System.out.println("Id really exists.");
-                return;
-            }
-        }
+        List<Product> productList = display(false);
         try {
+            for (Product pr : productList) {
+                if (product.getId() == pr.getId()){
+                    System.out.println("Id "+ product.getId() +" really exists.");
+                    return;
+                }
+            }
             productList.add(product);
             FileOutputStream fileOutputStream = new FileOutputStream(PATH_FILE);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -61,18 +63,14 @@ public class ProductMain {
         }
     }
 
-    private static void findProduct(){
-        List<Product> productList = display();
-        System.out.println("Enter id: ");
-        Scanner scanner = new Scanner(System.in);
-        int id = Integer.parseInt(scanner.nextLine());
+    private static void findProduct(int id){
+        List<Product> productList = display(false);
         for (Product product: productList) {
             if(id == product.getId()){
-                System.out.println("Result: \n"+product);
+                System.out.println("Result after found is: \n"+product);
                 return;
             }
         }
         System.out.println("Not found product.");
     }
-
 }

@@ -5,17 +5,17 @@ import java.io.Serializable;
 public class Product implements Serializable {
     private int id;
     private String name;
-    private String manufacturer;
-    private long price;
+    private String manufacture;
+    private double price;
     private String otherDescription;
 
     public Product() {
     }
 
-    public Product(int id, String name, String manufacturer, long price, String otherDescription) {
+    public Product(int id, String name, String manufacture, double price, String otherDescription) {
         this.id = id;
         this.name = name;
-        this.manufacturer = manufacturer;
+        this.manufacture = manufacture;
         this.price = price;
         this.otherDescription = otherDescription;
     }
@@ -36,15 +36,15 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public String getManufacturer() {
-        return manufacturer;
+    public String getManufacture() {
+        return manufacture;
     }
 
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
+    public void setManufacture(String manufacture) {
+        this.manufacture = manufacture;
     }
 
-    public long getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -65,7 +65,7 @@ public class Product implements Serializable {
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", manufacturer='" + manufacturer + '\'' +
+                ", manufacture='" + manufacture + '\'' +
                 ", price=" + price +
                 ", otherDescription='" + otherDescription + '\'' +
                 '}';
