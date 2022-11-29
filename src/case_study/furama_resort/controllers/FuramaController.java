@@ -6,12 +6,12 @@ import java.util.Scanner;
 
 public class FuramaController {
 
-    private final Scanner scanner = new Scanner(System.in);
-    private final EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
+    private static final Scanner scanner = new Scanner(System.in);
+
     public FuramaController() {
     }
 
-    public void displayMainMenu(){
+    public static void displayMainMenu(){
         System.out.println("---------MENU--------- \n" +
                 "1.\tEmployee Management \n" +
                 "2.\tCustomer Management \n" +
@@ -23,7 +23,7 @@ public class FuramaController {
         displayExtraMenu();
     }
 
-    public void displayExtraMenu(){
+    public static void displayExtraMenu(){
         int choice = Integer.parseInt(scanner.nextLine());
 
         while (choice<0 || choice >6){
@@ -33,7 +33,7 @@ public class FuramaController {
 
         switch (choice){
             case 1:
-                employeeService.displayEmployeeManagement();
+                EmployeeServiceImpl.displayEmployeeManagement();
                 break;
             case 2:
                 displayCustomerManagement();
@@ -56,7 +56,7 @@ public class FuramaController {
 
 
 
-    public void displayCustomerManagement(){
+    public static void displayCustomerManagement(){
         System.out.println("Customer Management: \n" +
                 "1.\tDisplay list customers \n" +
                 "2.\tAdd new customer \n" +
@@ -65,7 +65,7 @@ public class FuramaController {
                 "Enter choice: ");
     }
 
-    public void displayFacilityManagement(){
+    public static void displayFacilityManagement(){
         System.out.println("Facility Management: \n" +
                 "1.\tDisplay list facility \n" +
                 "2.\tAdd new facility \n" +
@@ -74,7 +74,7 @@ public class FuramaController {
                 "Enter choice: ");
     }
 
-    public void displayBookingManagement(){
+    public static void displayBookingManagement(){
         System.out.println("Booking Management: \n" +
                 "1.\tAdd new booking \n" +
                 "2.\tDisplay list booking \n" +
@@ -82,7 +82,7 @@ public class FuramaController {
                 "Enter choice: ");
     }
 
-    public void displayPromotionManagement (){
+    public static void displayPromotionManagement (){
         System.out.println("Promotion Management : \n" +
                 "1.\tDisplay list customers use service \n" +
                 "2.\tDisplay list customers get voucher \n" +
@@ -90,14 +90,12 @@ public class FuramaController {
                 "Enter choice: ");
     }
 
-    public void exit(){
+    public static void exit(){
         System.out.println("Exit.");
     }
 
     public static void main(String[] args) {
-        FuramaController furamaController = new FuramaController();
-        furamaController.displayMainMenu();
-
+        displayMainMenu();
     }
 
 }

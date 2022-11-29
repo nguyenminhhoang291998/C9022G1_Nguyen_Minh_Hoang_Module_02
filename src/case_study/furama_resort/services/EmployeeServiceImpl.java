@@ -5,10 +5,11 @@ import case_study.furama_resort.models.person.Employee;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static case_study.furama_resort.controllers.FuramaController.displayMainMenu;
+
 public class EmployeeServiceImpl implements IEmployeeService {
 
-    private final Scanner scanner = new Scanner(System.in);
-    //        FuramaController furamaController = new FuramaController();
+    private static final Scanner scanner = new Scanner(System.in);
     public static ArrayList<Employee> arrayListEmployee = new ArrayList<>();
 
     static {
@@ -27,7 +28,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
         arrayListEmployee.add(employee4);
     }
 
-    public void displayEmployeeManagement() {
+    public static void displayEmployeeManagement() {
         System.out.println("Employee Management: \n" +
                 "1.\tDisplay list employees \n" +
                 "2.\tAdd new employee \n" +
@@ -38,7 +39,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
         employeeManagement();
     }
 
-    public void employeeManagement() {
+    public static void employeeManagement() {
         int choice = Integer.parseInt(scanner.nextLine());
 
         while (choice < 0 || choice > 5) {
@@ -64,25 +65,25 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 displayEmployeeManagement();
                 break;
             case 5:
-//              furamaController.displayMainMenu();
+                displayMainMenu();
                 break;
         }
     }
 
-    public void displayListEmployee() {
+    public static void displayListEmployee() {
         for (Employee employee : arrayListEmployee) {
             System.out.println(employee);
         }
     }
 
-    public void addToListEmployee(Employee e) {
+    public static void addToListEmployee(Employee e) {
         if (e != null) {
             arrayListEmployee.add(e);
         }
     }
 
 
-    public void deleteInListEmployee(int id) {
+    public static void deleteInListEmployee(int id) {
         for (Employee employee : arrayListEmployee) {
             if (employee.getId() == id) {
                 arrayListEmployee.remove(employee);
@@ -92,7 +93,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
         }
     }
 
-    public void editListEmployee(Employee e) {
+    public static void editListEmployee(Employee e) {
         for (Employee employee : arrayListEmployee) {
             if (employee.getId() == e.getId()) {
                 arrayListEmployee.remove(employee);
@@ -103,7 +104,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
 
-    public Employee newEmployee(int id) {
+    public static Employee newEmployee(int id) {
         System.out.println("Enter name: ");
         String newName = scanner.nextLine();
         System.out.println("Enter year of birth: ");
@@ -122,7 +123,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 newNumberCard, newEmail, newAddress, newPosition);
     }
 
-    public int findId(boolean x) {
+    public static int findId(boolean x) {
         System.out.println("Enter the id: ");
         int id = Integer.parseInt(scanner.nextLine());
 

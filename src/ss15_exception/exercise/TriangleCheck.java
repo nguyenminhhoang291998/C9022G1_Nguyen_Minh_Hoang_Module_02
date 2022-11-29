@@ -3,7 +3,7 @@ package ss15_exception.exercise;
 import java.util.Scanner;
 
 public class TriangleCheck {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Nhập độ dài cạnh thứ nhất: ");
         int a = Integer.parseInt(scanner.nextLine());
