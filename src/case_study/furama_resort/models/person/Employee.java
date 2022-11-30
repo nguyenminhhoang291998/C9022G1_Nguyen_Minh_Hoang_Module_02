@@ -25,15 +25,15 @@ public class Employee extends Person{
 
     public Employee(int id,String name, int yearOfBirth, String gender, String numberCard,
                     String email, String address, String position) {
-        super(name, yearOfBirth, gender, numberCard, email, address);
+        super(id,name, yearOfBirth, gender, numberCard, email, address);
         this.position = position;
-        this.id = id;
+
     }
 
     @Override
     public String toString() {
         return "Employee{" +
-                "id=" + id  + super.toString() + '\'' +
+                 super.toString() + '\'' +
                 ", position='" + position+
                 "} "
                 ;

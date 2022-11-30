@@ -1,16 +1,16 @@
-package case_study.furama_resort.services;
+package case_study.furama_resort.services.impl;
 
 import case_study.furama_resort.models.person.Employee;
+import case_study.furama_resort.services.IEmployeeService;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static case_study.furama_resort.controllers.FuramaController.displayMainMenu;
+
 
 public class EmployeeServiceImpl implements IEmployeeService {
-
     private static final Scanner scanner = new Scanner(System.in);
-    public static ArrayList<Employee> arrayListEmployee = new ArrayList<>();
+    public static ArrayList<Employee> employeeList = new ArrayList<>();
 
     static {
         Employee employee1 = new Employee(12, "Nguyen Minh Hoang", 1998, "Male",
@@ -22,13 +22,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
         Employee employee4 = new Employee(14, "Ninh Nguyen Huu Hoang", 1996, "Male",
                 "0158765825", "ninhhoang96@gmail.com", "Da Nang", "Receptionist");
 
-        arrayListEmployee.add(employee1);
-        arrayListEmployee.add(employee2);
-        arrayListEmployee.add(employee3);
-        arrayListEmployee.add(employee4);
+        employeeList.add(employee1);
+        employeeList.add(employee2);
+        employeeList.add(employee3);
+        employeeList.add(employee4);
     }
 
-    public static void displayEmployeeManagement() {
+    public void displayEmployeeManagement() {
         System.out.println("Employee Management: \n" +
                 "1.\tDisplay list employees \n" +
                 "2.\tAdd new employee \n" +
@@ -39,7 +39,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
         employeeManagement();
     }
 
-    public static void employeeManagement() {
+    public void employeeManagement() {
         int choice = Integer.parseInt(scanner.nextLine());
 
         while (choice < 0 || choice > 5) {
@@ -65,46 +65,47 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 displayEmployeeManagement();
                 break;
             case 5:
-                displayMainMenu();
+//                displayMainMenu();
                 break;
         }
     }
 
-    public static void displayListEmployee() {
-        for (Employee employee : arrayListEmployee) {
+
+    public void displayListEmployee() {
+        for (Employee employee : employeeList) {
             System.out.println(employee);
         }
     }
 
-    public static void addToListEmployee(Employee e) {
+    public void addToListEmployee(Employee e) {
         if (e != null) {
-            arrayListEmployee.add(e);
+            employeeList.add(e);
         }
     }
 
 
-    public static void deleteInListEmployee(int id) {
-        for (Employee employee : arrayListEmployee) {
+    public void deleteInListEmployee(int id) {
+        for (Employee employee : employeeList) {
             if (employee.getId() == id) {
-                arrayListEmployee.remove(employee);
+                employeeList.remove(employee);
                 System.out.println("Successful delete.");
                 break;
             }
         }
     }
 
-    public static void editListEmployee(Employee e) {
-        for (Employee employee : arrayListEmployee) {
+    public void editListEmployee(Employee e) {
+        for (Employee employee : employeeList) {
             if (employee.getId() == e.getId()) {
-                arrayListEmployee.remove(employee);
-                arrayListEmployee.add(e);
+                employeeList.remove(employee);
+                employeeList.add(e);
                 System.out.println("Edit successfully.");
             }
         }
     }
 
 
-    public static Employee newEmployee(int id) {
+    private Employee newEmployee(int id) {
         System.out.println("Enter name: ");
         String newName = scanner.nextLine();
         System.out.println("Enter year of birth: ");
@@ -123,13 +124,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 newNumberCard, newEmail, newAddress, newPosition);
     }
 
-    public static int findId(boolean x) {
+    private int findId(boolean x) {
         System.out.println("Enter the id: ");
         int id = Integer.parseInt(scanner.nextLine());
 
             if (!x) {
                 //false, tìm đến khi không trùng
-                for (Employee employee : arrayListEmployee) {
+                for (Employee employee : employeeList) {
                     while (employee.getId() == id) {
                         System.out.println("Id already exists. Enter again Id: ");
                         id = Integer.parseInt(scanner.nextLine());
@@ -137,7 +138,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 }
             }else {
                 // true, tìm đến khi trùng
-                for (Employee employee : arrayListEmployee) {
+                for (Employee employee : employeeList) {
                 if (employee.getId() == id) {
                     return id;
                 }
