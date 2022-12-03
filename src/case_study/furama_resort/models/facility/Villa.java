@@ -1,8 +1,48 @@
 package case_study.furama_resort.models.facility;
 
 public class Villa extends Facility{
-    @Override
-    public void rentalService() {
-        System.out.println("Villa");
-    }
+   private String roomStandards;
+   private float poolArea;
+   private int floorCount;
+
+   public Villa(String idFacility, String nameFacility, float usableArea, float rentalCosts, int maximumNumberOfPeople,
+                String typeHire, String roomStandards, float poolArea, int floorCount) {
+      super(idFacility, nameFacility, usableArea, rentalCosts, maximumNumberOfPeople, typeHire);
+      this.roomStandards = roomStandards;
+      this.poolArea = poolArea;
+      this.floorCount = floorCount;
+   }
+
+   public String getRoomStandards() {
+      return roomStandards;
+   }
+
+   public void setRoomStandards(String roomStandards) {
+      this.roomStandards = roomStandards;
+   }
+
+   public float getPoolArea() {
+      return poolArea;
+   }
+
+   public void setPoolArea(int poolArea) {
+      this.poolArea = poolArea;
+   }
+
+   public int getFloorCount() {
+      return floorCount;
+   }
+
+   public void setFloorCount(int floorCount) {
+      this.floorCount = floorCount;
+   }
+
+   @Override
+   public String toString() {
+      return "Villa{" + super.toString()+
+              "roomStandards='" + roomStandards + '\'' +
+              ", poolArea=" + poolArea + "m2" +
+              ", floorCount=" + floorCount +
+              "} " ;
+   }
 }

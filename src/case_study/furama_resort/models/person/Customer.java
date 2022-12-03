@@ -1,13 +1,29 @@
 package case_study.furama_resort.models.person;
 
 public class Customer extends Person{
-    private String jobDetails;
+    private String type;
+    private String address;
 
-    public Customer() {
+    public String getType() {
+        return type;
     }
 
-    public Customer(int id,String name, int yearOfBirth, String gender, String numberCard,
-                    String email, String address) {
-        super(id,name, yearOfBirth, gender, numberCard, email, address);
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Customer(int id, String name, String dayOfBirth, String gender, String numberCard, String email,
+                    String phoneNumber, String type, String address) {
+        super(id, name, dayOfBirth, gender, numberCard, email, phoneNumber);
+        this.type = type;
+        this.address = address;
     }
 }
