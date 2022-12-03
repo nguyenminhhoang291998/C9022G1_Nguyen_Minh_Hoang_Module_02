@@ -139,7 +139,7 @@ public class EmployeeView {
     }
 
     private boolean checkAge(String dayOfBirth) {
-        if (dayOfBirth.matches(common.DAY_OF_BIRTH)) {
+        if (dayOfBirth.matches(common.DATE_REGEX)) {
             if (dayOfBirth.matches(common.DATE_FORMAT)) {
 //              localDayOfBirth = LocalDate.parse(dayOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
                 LocalDate localDayOfBirth = LocalDate.parse(dayOfBirth, DateTimeFormatter.ofPattern("dd/MM/yyyy"));

@@ -117,9 +117,9 @@ public class FacilityView {
         System.out.println("Enter usable area(m2): ");
         float newUsableArea = (float) checkRegex(common.AREA_REGEX);
         System.out.println("Enter rental costs($): ");
-        float newRentalCosts = (float) checkRegex(common.RENTAL_COSTS);
+        float newRentalCosts = (float) checkRegex(common.RENTAL_COSTS_REGEX);
         System.out.println("Enter maximum number of people:  ");
-        int newMaximumNumberOfPeople = (int) checkRegex(common.MAXIMUM_NUMBER_OF_PEOPLE);
+        int newMaximumNumberOfPeople = (int) checkRegex(common.MAXIMUM_NUMBER_OF_PEOPLE_REGEX);
         System.out.println("Enter type hire: ");
         String newTypeHire = (String) checkRegex(common.NAME_REGEX);
         System.out.println("Enter room standards: ");
