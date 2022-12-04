@@ -1,23 +1,27 @@
 package case_study.furama_resort.models.person;
 
-public class Employee extends Person{
+public class Employee extends Person {
     private String degree;
     private String position;
 
-    private int salary;
+    private float salary;
 
-    public Employee(int id, String name, String dayOfBirth, String gender, String numberCard, String email, String phoneNumber, String degree, String position, int salary) {
+    public Employee(int id, String name, String dayOfBirth, String gender, String numberCard, String email,
+                    String phoneNumber, String degree, String position, float salary) {
         super(id, name, dayOfBirth, gender, numberCard, email, phoneNumber);
         this.degree = degree;
         this.position = position;
         this.salary = salary;
     }
 
-    public int getSalary() {
+
+
+
+    public float getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(float salary) {
         this.salary = salary;
     }
 
@@ -40,5 +44,17 @@ public class Employee extends Person{
     public Employee() {
     }
 
+    @Override
+    public String toString() {
+        return "Employee{"+ super.toString() +
+                "degree='" + degree + '\'' +
+                ", position='" + position + '\'' +
+                ", salary=" + salary + " $"+
+                "} " ;
+    }
 
+    @Override
+    public String writeInfor() {
+        return super.writeInfor() +","+ this.degree+","+ this.position+","+ this.salary;
+    }
 }

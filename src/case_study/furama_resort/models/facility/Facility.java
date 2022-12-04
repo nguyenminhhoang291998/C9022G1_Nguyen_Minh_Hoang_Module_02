@@ -68,11 +68,14 @@ public abstract class Facility {
 
     @Override
     public String toString() {
-        return  " name facility='" + nameFacility + '\'' +
+        return  "{ Name facility='" + nameFacility + '\'' +
                 ", usable area=" + usableArea + "m2" +
                 ", rental costs=" + rentalCosts + "$"+
                 ", maximum number of people=" + maximumNumberOfPeople +
-                ", type hire='" + typeHire + '\'' +
-                '}';
+                ", type hire='" + typeHire + '\'' ;
+    }
+
+    public String writeInfor(){
+        return this.idFacility + ","+this.usableArea + ","+this.rentalCosts + ","+this.maximumNumberOfPeople + ","+this.typeHire;
     }
 }

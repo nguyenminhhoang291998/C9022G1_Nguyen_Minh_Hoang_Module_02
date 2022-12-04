@@ -20,7 +20,7 @@ public class FacilityController {
         this.facilityServiceImpl.addData(facility);
     }
 
-    public Facility displayFacilityMaintenance() {
+    public Map<Facility,Integer> displayFacilityMaintenance() {
         return this.facilityServiceImpl.displayFacilityMaintenance();
     }
 

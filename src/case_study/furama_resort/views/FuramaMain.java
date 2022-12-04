@@ -1,4 +1,4 @@
-package case_study.furama_resort.view;
+package case_study.furama_resort.views;
 
 public class FuramaMain {
 

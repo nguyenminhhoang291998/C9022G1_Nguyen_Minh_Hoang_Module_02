@@ -1,4 +1,4 @@
-package case_study.furama_resort.view;
+package case_study.furama_resort.views;
 
 import case_study.furama_resort.common.Common;
 import case_study.furama_resort.controllers.FacilityController;
@@ -41,7 +41,7 @@ public class FacilityView {
     }
 
     private void displayListFacilityMaintenance() {
-        System.out.println(this.facilityController.displayFacilityMaintenance());
+        System.out.println(this.facilityController.displayFacilityMaintenance().toString());
     }
 
 
@@ -59,7 +59,7 @@ public class FacilityView {
             System.out.println("Add new facility: \n" +
                     "1.\tAdd new villa \n" +
                     "2.\tAdd new room \n" +
-                    "4.\tBack to menu \n" +
+                    "3.\tBack to menu \n" +
                     "Enter choice: ");
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
@@ -112,28 +112,28 @@ public class FacilityView {
     }
 
     private Villa getInformationNewVilla(String newIDFacility) {
-        System.out.println("Enter name facility: ");
+        System.out.println("Enter name villa: ");
         String newNameFacility = (String) checkRegex(common.NAME_REGEX);
         System.out.println("Enter usable area(m2): ");
-        float newUsableArea = (float) checkRegex(common.AREA_REGEX);
+        float newUsableArea = Float.parseFloat(checkRegex(common.AREA_REGEX));
         System.out.println("Enter rental costs($): ");
-        float newRentalCosts = (float) checkRegex(common.RENTAL_COSTS_REGEX);
+        float newRentalCosts = Float.parseFloat(checkRegex(common.RENTAL_COSTS_REGEX));
         System.out.println("Enter maximum number of people:  ");
-        int newMaximumNumberOfPeople = (int) checkRegex(common.MAXIMUM_NUMBER_OF_PEOPLE_REGEX);
+        int newMaximumNumberOfPeople = Integer.parseInt(checkRegex(common.MAXIMUM_NUMBER_OF_PEOPLE_REGEX));
         System.out.println("Enter type hire: ");
         String newTypeHire = (String) checkRegex(common.NAME_REGEX);
         System.out.println("Enter room standards: ");
         String newRoomStandards = (String) checkRegex(common.NAME_REGEX);
         System.out.println("Enter pool area(m2): ");
-        float newPoolArea = (float) checkRegex(common.AREA_REGEX);
+        float newPoolArea = Float.parseFloat(checkRegex(common.AREA_REGEX));
         System.out.println("Enter floor count: ");
-        int newFloorCount = (int) checkRegex(common.FLOOR_COUNT);
+        int newFloorCount = Integer.parseInt(checkRegex(common.FLOOR_COUNT));
 
         return new Villa(newIDFacility, newNameFacility, newUsableArea, newRentalCosts,
                 newMaximumNumberOfPeople, newTypeHire, newRoomStandards, newPoolArea, newFloorCount);
     }
 
-    private Object checkRegex(String regex) {
+    private String checkRegex(String regex) {
         boolean flag;
         String o;
         do {
@@ -145,18 +145,20 @@ public class FacilityView {
     }
 
     private Room getInformationNewRoom(String newIDFacility) {
+        System.out.println("Enter name room: ");
+        String newNameRoom = (String) checkRegex(common.NAME_REGEX);
         System.out.println("Enter usable area(m2): ");
-        float newUsableArea = Float.parseFloat(scanner.nextLine());
+        float newUsableArea = Float.parseFloat(checkRegex(common.AREA_REGEX));
         System.out.println("Enter rental costs($): ");
-        float newRentalCosts = Float.parseFloat(scanner.nextLine());
+        float newRentalCosts = Float.parseFloat(checkRegex(common.RENTAL_COSTS_REGEX));
         System.out.println("Enter maximum number of people: ");
-        int newMaximumNumberOfPeople = Integer.parseInt(scanner.nextLine());
+        int newMaximumNumberOfPeople = Integer.parseInt(checkRegex(common.MAXIMUM_NUMBER_OF_PEOPLE_REGEX));
         System.out.println("Enter type hire: ");
-        String newTypeHire = scanner.nextLine();
+        String newTypeHire = (String) checkRegex(common.NAME_REGEX);
         System.out.println("Enter free service: ");
         String newFreeService = scanner.nextLine();
 
-        return new Room(newIDFacility, "VILLA", newUsableArea, newRentalCosts,
+        return new Room(newIDFacility, newNameRoom, newUsableArea, newRentalCosts,
                 newMaximumNumberOfPeople, newTypeHire, newFreeService);
     }
 

@@ -22,6 +22,8 @@ public abstract class Person {
         this.phoneNumber = phoneNumber;
     }
 
+
+
     public int getId() {
         return id;
     }
@@ -87,5 +89,9 @@ public abstract class Person {
                 ", number card='" + numberCard + '\'' +
                 ", email='" + email + '\'' +
                 ", phone number='" + phoneNumber + '\'';
+    }
+
+    public String writeInfor(){
+        return this.id + "," +this.name + "," +this.dayOfBirth + "," +this.gender + "," +this.numberCard + "," +this.email + "," +this.phoneNumber;
     }
 }

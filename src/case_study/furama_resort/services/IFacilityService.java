@@ -12,5 +12,5 @@ public interface IFacilityService extends IService<Facility> {
     void addData(Facility facility);
 
 
-    Facility displayFacilityMaintenance();
+    Map<Facility,Integer> displayFacilityMaintenance();
 }

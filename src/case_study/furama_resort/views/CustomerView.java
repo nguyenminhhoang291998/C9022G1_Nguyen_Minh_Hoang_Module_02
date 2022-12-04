@@ -1,37 +1,33 @@
-package case_study.furama_resort.view;
+package case_study.furama_resort.views;
 
 import case_study.furama_resort.common.Common;
-import case_study.furama_resort.controllers.EmployeeController;
-import case_study.furama_resort.models.person.Employee;
+import case_study.furama_resort.controllers.CustomerController;
+import case_study.furama_resort.models.person.Customer;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public class EmployeeView {
+public class CustomerView {
     private static final Scanner scanner = new Scanner(System.in);
-    private final EmployeeController employeeController = new EmployeeController();
+    private final CustomerController customerController = new CustomerController();
     private final Common common = new Common();
-
-    public void displayEmployeeManagement() {
+    public void displayCustomerManagement() {
         do {
-            menuEmployeeManagement();
+            menuCustomerManagement();
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
-                    displayListEmployee();
+                    displayListCustomer();
                     break;
                 case 2:
-                    addToListEmployee();
+                    addToListCustomer();
                     break;
                 case 3:
-                    deleteInListEmployee();
+                    editListCustomer();
                     break;
                 case 4:
-                    editListEmployee();
-                    break;
-                case 5:
                     return;
                 default:
                     System.out.println("Choice not true. Enter choice again.");
@@ -40,22 +36,29 @@ public class EmployeeView {
         } while (true);
     }
 
-    private void displayListEmployee() {
-        System.out.println(this.employeeController.displayListEmployee());
+    private void menuCustomerManagement() {
+        System.out.println("Customer Management: \n" +
+                "1.\tDisplay list customers \n" +
+                "2.\tAdd new customer \n" +
+                "3.\tEdit customer \n" +
+                "4.\tReturn main menu \n" +
+                "Enter choice: ");
+    }
+    private void displayListCustomer() {
+        System.out.println(this.customerController.displayListCustomer());
     }
 
-
-    private void addToListEmployee() {
+    private void addToListCustomer() {
         do {
             System.out.println("Enter the ID you wish to add: ");
             int id = Integer.parseInt(scanner.nextLine());
-            boolean isIDEmployeeAlreadyExists = this.employeeController.isIDEmployeeAlreadyExists(id);
+            boolean isIDCustomerAlreadyExists = this.customerController.isIDCustomerAlreadyExists(id);
 
-            if (isIDEmployeeAlreadyExists) {
+            if (isIDCustomerAlreadyExists) {
                 System.out.print("Id already exists. ");
             } else {
-                Employee newEmployee = newEmployee(id);
-                this.employeeController.addToListEmployee(newEmployee);
+                Customer newCustomer = newCustomer(id);
+                this.customerController.addToListCustomer(newCustomer);
                 System.out.println("Successful add.");
                 break;
             }
@@ -63,52 +66,25 @@ public class EmployeeView {
         } while (true);
     }
 
-
-    private void deleteInListEmployee() {
-        do {
-            System.out.println("Enter the ID you wish to delete: ");
-            int id = Integer.parseInt(scanner.nextLine());
-            boolean isIDEmployeeAlreadyExists = this.employeeController.isIDEmployeeAlreadyExists(id);
-
-            if (!isIDEmployeeAlreadyExists) {
-                System.out.print("The ID you want to delete does not already exist. ");
-            } else {
-                this.employeeController.deleteInListEmployee(id);
-                System.out.println("Successful delete.");
-                break;
-            }
-
-        } while (true);
-    }
-
-    private void editListEmployee() {
+    private void editListCustomer() {
         do {
             System.out.println("Enter the ID you wish to edit: ");
             int id = Integer.parseInt(scanner.nextLine());
-            boolean isIDEmployeeAlreadyExists = this.employeeController.isIDEmployeeAlreadyExists(id);
+            boolean isIDCustomerAlreadyExists = this.customerController.isIDCustomerAlreadyExists(id);
 
-            if (!isIDEmployeeAlreadyExists) {
+            if (!isIDCustomerAlreadyExists) {
                 System.out.print("The ID you want to edit does not already exist. ");
             } else {
-                Employee editEmployee = newEmployee(id);
-                this.employeeController.editListEmployee(editEmployee);
+                Customer editCustomer = newCustomer(id);
+                this.customerController.editListCustomer(editCustomer);
                 System.out.println("Successful edit.");
                 break;
             }
         } while (true);
     }
 
-    private void menuEmployeeManagement() {
-        System.out.println("Employee Management: \n" +
-                "1.\tDisplay list employees \n" +
-                "2.\tAdd new employee \n" +
-                "3.\tDelete employee \n" +
-                "4.\tEdit employee \n" +
-                "5.\tReturn main menu \n" +
-                "Enter choice: ");
-    }
 
-    private Employee newEmployee(int id) {
+    private Customer newCustomer(int id) {
         System.out.println("Enter name: ");
         String newName = scanner.nextLine();
         //kiểm tra đủ tuổi
@@ -119,23 +95,21 @@ public class EmployeeView {
             newDayOfBirth = scanner.nextLine();
             flag = checkAge(newDayOfBirth);
         } while (!flag);
-
         System.out.println("Enter gender: ");
         String newGender = scanner.nextLine();
         System.out.println("Enter number card: ");
         String newNumberCard = scanner.nextLine();
         System.out.println("Enter email: ");
         String newEmail = scanner.nextLine();
+        System.out.println("Enter phone number: ");
+        String newPhoneNumber = scanner.nextLine();
+        System.out.println("Enter type: ");
+        String newType  = scanner.nextLine();
         System.out.println("Enter address: ");
         String newAddress = scanner.nextLine();
-        System.out.println("Enter degree: ");
-        String newDegree = scanner.nextLine();
-        System.out.println("Enter position: ");
-        String newPosition = scanner.nextLine();
-        System.out.println("Enter salary: ");
-        int newSalary = Integer.parseInt(scanner.nextLine());
-        return new Employee(id, newName, newDayOfBirth, newGender,
-                newNumberCard, newEmail, newAddress, newDegree, newPosition, newSalary);
+
+        return new Customer(id, newName, newDayOfBirth, newGender,
+                newNumberCard, newEmail, newPhoneNumber,newType,newAddress);
     }
 
     private boolean checkAge(String dayOfBirth) {
@@ -164,7 +138,3 @@ public class EmployeeView {
     }
 
 }
-
-
-
-

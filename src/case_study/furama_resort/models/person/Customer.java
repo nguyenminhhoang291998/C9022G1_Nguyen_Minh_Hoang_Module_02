@@ -26,4 +26,16 @@ public class Customer extends Person{
         this.type = type;
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{"+ super.toString() +
+                "type='" + type + '\'' +
+                ", address='" + address + '\'' +
+                "} " ;
+    }
+    @Override
+    public String writeInfor() {
+        return super.writeInfor() +","+ this.type+","+ this.address;
+    }
 }
