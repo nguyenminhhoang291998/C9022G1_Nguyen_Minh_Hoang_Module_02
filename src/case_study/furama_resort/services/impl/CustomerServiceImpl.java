@@ -25,12 +25,16 @@ public class CustomerServiceImpl implements ICustomerService {
 
 
     @Override
-    public List<Customer> displayListCustomer() {
+    public List<Customer> getListCustomer() {
         return this.readFile();
     }
 
     @Override
     public void addData(Customer customer) {
+        if(isIDCustomerAlreadyExists(customer.getId())){
+            System.out.println("The ID you want to add already exists.");
+            return;
+        }
         List<Customer> ctmList = readFile();
         ctmList.add(customer);
         writeFile(ctmList);
@@ -38,6 +42,10 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public void editCustomer(Customer customer) {
+        if(!isIDCustomerAlreadyExists(customer.getId())){
+            System.out.println("The ID you want to edit does not already exist.");
+            return;
+        }
         List<Customer> ctmList = readFile();
         for (Customer ctm : ctmList) {
             if (customer.getId() == ctm.getId()) {
@@ -93,7 +101,7 @@ public class CustomerServiceImpl implements ICustomerService {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(PATH_FILE_CUSTOMER));
             for (Customer customer : ctmList) {
-                bufferedWriter.write(customer.writeInfor());
+                bufferedWriter.write(customer.writeInfor().toString());
                 bufferedWriter.newLine();
             }
             bufferedWriter.close();

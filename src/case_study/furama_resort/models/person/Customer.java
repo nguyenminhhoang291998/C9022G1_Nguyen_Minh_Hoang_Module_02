@@ -35,7 +35,7 @@ public class Customer extends Person{
                 "} " ;
     }
     @Override
-    public String writeInfor() {
-        return super.writeInfor() +","+ this.type+","+ this.address;
+    public StringBuilder writeInfor() {
+        return new StringBuilder(super.writeInfor() + "," + this.type + "," + this.address);
     }
 }

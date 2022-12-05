@@ -6,11 +6,7 @@ import java.util.Map;
 
 public interface IFacilityService extends IService<Facility> {
 
-    Map<Facility,Integer> displayListFacility();
+    Map<Facility,Integer> getListFacility();
 
-    @Override
-    void addData(Facility facility);
-
-
-    Map<Facility,Integer> displayFacilityMaintenance();
+    Map<Facility,Integer> getFacilityMaintenance();
 }

@@ -13,48 +13,65 @@ import java.util.Set;
 
 public class FacilityServiceImpl implements IFacilityService {
 
-    private static final Map<Facility, Integer> facilityList = new LinkedHashMap<>();
+
     private final String PATH_FILE_VILLA = "src/case_study/furama_resort/data/villa.csv";
     private final String PATH_FILE_ROOM = "src/case_study/furama_resort/data/room.csv";
 
     static {
-        Facility villa1 = new Villa("SVVL-9999", "Villa", 100, 253,
-                10, "10 days", "5 Star", 35.8f, 3);
-        Facility villa2 = new Villa("SVVL-9887", "Villa", 100, 253,
-                10, "10 days", "5 Star", 35.8f, 3);
-        facilityList.put(villa1, 5);
-        facilityList.put(villa2, 5);
+//        Facility villa1 = new Villa("SVVL-9999", "Villa", 100, 253,
+//                10, "10 days", "5 Star", 35.8f, 3);
+//        Facility villa2 = new Villa("SVVL-9887", "Villa", 100, 253,
+//                10, "10 days", "5 Star", 35.8f, 3);
+//        facilityList.put(villa1, 5);
+//        facilityList.put(villa2, 5);
     }
 
 
-    public Map<Facility, Integer> displayListFacility() {
-//        Map<Room, Integer> roomList = readFileRoom();
-//        Map<Facility,Integer> facilityList = readFileVilla();
-//        facilityList.putAll(roomList);
+    public Map<Facility, Integer> getListFacility() {
+        Map<Facility, Integer> facilityList = new LinkedHashMap<>();
+        Map<Room, Integer> roomList = readFileRoom();
+        facilityList.putAll(roomList);
+        Map<Villa, Integer> villaList = readFileVilla();
+        facilityList.putAll(villaList);
         return facilityList;
     }
 
     @Override
+
     public void addData(Facility facility) {
-        if(facility instanceof Room){
+//        Check bằng id thông thường
+//        if(isIDFacilityAlreadyExists(facility.getIdFacility())){
+//            System.out.println("The ID you want to add already exists.");
+//            return;
+//        }
+
+        // Check bằng equals, hashcode
+        Map<Facility, Integer> facilityList = getListFacility();
+        for (Facility fcl : facilityList.keySet()) {
+            if (fcl.equals(facility)) {
+                System.out.println("The ID you want to add already exists.");
+                return;
+            }
+        }
+        if (facility instanceof Room) {
             Room room = (Room) facility;
             Map<Room, Integer> roomList = readFileRoom();
-            roomList.put(room,0);
+            roomList.put(room, 0);
             writeFileRoom(roomList);
-        }else {
+        } else {
             Villa villa = (Villa) facility;
-            Map<Villa,Integer> villaList = readFileVilla();
-            villaList.put(villa,0);
+            Map<Villa, Integer> villaList = readFileVilla();
+            villaList.put(villa, 0);
             writeFileVilla(villaList);
         }
     }
 
-
-
     @Override
-    public Map<Facility, Integer> displayFacilityMaintenance() {
+    public Map<Facility, Integer> getFacilityMaintenance() {
+        Map<Facility, Integer> listFacility = getListFacility();
         Map<Facility, Integer> listFacilityMaintenance = new LinkedHashMap<>();
-        for (Map.Entry<Facility, Integer> facilityIntegerMap : facilityList.entrySet()) {
+
+        for (Map.Entry<Facility, Integer> facilityIntegerMap : listFacility.entrySet()) {
             if (facilityIntegerMap.getValue() >= 5) {
                 listFacilityMaintenance.put(facilityIntegerMap.getKey(), facilityIntegerMap.getValue());
             }
@@ -63,6 +80,7 @@ public class FacilityServiceImpl implements IFacilityService {
     }
 
     public boolean isIDFacilityAlreadyExists(String idFacility) {
+        Map<Facility, Integer> facilityList = getListFacility();
         for (Facility facility : facilityList.keySet()) {
             if (Objects.equals(idFacility, facility.getIdFacility())) {
                 return true;
@@ -88,8 +106,9 @@ public class FacilityServiceImpl implements IFacilityService {
             bufferedReader.close();
         } catch (IOException e) {
             System.err.println("File không tồn tại hoặc nội dung có lỗi!");
-        } catch (Exception ex) {
-            return roomList;
+//        } catch (Exception ex) {
+//            return roomList;
+//        }
         }
         return roomList;
     }
@@ -120,7 +139,7 @@ public class FacilityServiceImpl implements IFacilityService {
             while ((line = bufferedReader.readLine()) != null) {
                 String[] vList = line.split(",");
                 villaList.put(new Villa(vList[0], vList[1], Float.parseFloat(vList[2]), Float.parseFloat(vList[3]),
-                        Integer.parseInt(vList[4]), vList[5], vList[6],  Float.parseFloat(vList[7]),  Integer.parseInt(vList[8])), Integer.parseInt(vList[9]));
+                        Integer.parseInt(vList[4]), vList[5], vList[6], Float.parseFloat(vList[7]), Integer.parseInt(vList[8])), Integer.parseInt(vList[9]));
             }
             bufferedReader.close();
         } catch (IOException e) {
@@ -133,7 +152,7 @@ public class FacilityServiceImpl implements IFacilityService {
 
     private void writeFileVilla(Map<Villa, Integer> villaList) {
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(PATH_FILE_ROOM));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(PATH_FILE_VILLA));
             Set<Map.Entry<Villa, Integer>> setVillaList = villaList.entrySet();
             for (Map.Entry<Villa, Integer> i : setVillaList) {
                 bufferedWriter.write(i.getKey().writeInfor() + "," + i.getValue());

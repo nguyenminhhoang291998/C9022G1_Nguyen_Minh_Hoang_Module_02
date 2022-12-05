@@ -6,10 +6,10 @@ import case_study.furama_resort.services.impl.FacilityServiceImpl;
 import java.util.Map;
 
 public class FacilityController {
-    FacilityServiceImpl facilityServiceImpl = new FacilityServiceImpl();
+    private final FacilityServiceImpl facilityServiceImpl = new FacilityServiceImpl();
 
-    public Map<Facility,Integer> displayListFacility() {
-        return this.facilityServiceImpl.displayListFacility();
+    public Map<Facility,Integer> getListFacility() {
+        return this.facilityServiceImpl.getListFacility();
     }
 
     public boolean isIDFacilityAlreadyExists(String idFacility) {
@@ -20,8 +20,8 @@ public class FacilityController {
         this.facilityServiceImpl.addData(facility);
     }
 
-    public Map<Facility,Integer> displayFacilityMaintenance() {
-        return this.facilityServiceImpl.displayFacilityMaintenance();
+    public Map<Facility,Integer> getFacilityMaintenance() {
+        return this.facilityServiceImpl.getFacilityMaintenance();
     }
 
 }

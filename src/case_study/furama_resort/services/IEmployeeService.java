@@ -9,9 +9,6 @@ public interface IEmployeeService extends IService<Employee>{
 
     void editEmployee(Employee employee);
 
-    List<Employee> displayListEmployee();
-
-    @Override
-    void addData(Employee employee);
+    List<Employee> getListEmployee();
 
 }

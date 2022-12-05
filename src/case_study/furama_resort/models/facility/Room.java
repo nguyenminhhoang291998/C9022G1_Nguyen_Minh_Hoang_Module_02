@@ -21,7 +21,7 @@ public class Room extends Facility {
     public String toString() {
         return  super.toString()+
                 ", free Service='" + freeService + '\'' +
-                ", times of used" ;
+                "}, times of used: " ;
     }
 
     public String writeInfor(){

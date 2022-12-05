@@ -1,18 +1,18 @@
 package case_study.furama_resort.views;
 
-import case_study.furama_resort.common.Common;
+import case_study.furama_resort.common.Regex;
 import case_study.furama_resort.controllers.EmployeeController;
 import case_study.furama_resort.models.person.Employee;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Scanner;
 
 public class EmployeeView {
     private static final Scanner scanner = new Scanner(System.in);
     private final EmployeeController employeeController = new EmployeeController();
-    private final Common common = new Common();
 
     public void displayEmployeeManagement() {
         do {
@@ -40,8 +40,23 @@ public class EmployeeView {
         } while (true);
     }
 
+    private void menuEmployeeManagement() {
+        System.out.println("Employee Management: \n" +
+                "1.\tDisplay list employees \n" +
+                "2.\tAdd new employee \n" +
+                "3.\tDelete employee \n" +
+                "4.\tEdit employee \n" +
+                "5.\tReturn main menu \n" +
+                "Enter choice: ");
+    }
+
     private void displayListEmployee() {
-        System.out.println(this.employeeController.displayListEmployee());
+        List<Employee> employeeList = this.employeeController.getListEmployee();
+
+        System.out.println("-----------LIST EMPLOYEE------------");
+        for (Employee employee : employeeList) {
+            System.out.println(employee);
+        }
     }
 
 
@@ -65,6 +80,10 @@ public class EmployeeView {
 
 
     private void deleteInListEmployee() {
+        if (this.employeeController.getListEmployee().isEmpty()) {
+            System.out.println("List employee is empty. You can't delete.");
+            return;
+        }
         do {
             System.out.println("Enter the ID you wish to delete: ");
             int id = Integer.parseInt(scanner.nextLine());
@@ -82,6 +101,10 @@ public class EmployeeView {
     }
 
     private void editListEmployee() {
+        if (this.employeeController.getListEmployee().isEmpty()) {
+            System.out.println("List employee is empty. You can't edit.");
+            return;
+        }
         do {
             System.out.println("Enter the ID you wish to edit: ");
             int id = Integer.parseInt(scanner.nextLine());
@@ -98,28 +121,11 @@ public class EmployeeView {
         } while (true);
     }
 
-    private void menuEmployeeManagement() {
-        System.out.println("Employee Management: \n" +
-                "1.\tDisplay list employees \n" +
-                "2.\tAdd new employee \n" +
-                "3.\tDelete employee \n" +
-                "4.\tEdit employee \n" +
-                "5.\tReturn main menu \n" +
-                "Enter choice: ");
-    }
-
     private Employee newEmployee(int id) {
+//        try {
         System.out.println("Enter name: ");
         String newName = scanner.nextLine();
-        //kiểm tra đủ tuổi
-        String newDayOfBirth;
-        boolean flag;
-        do {
-            System.out.println("Enter Enter day of birth (dd/mm/yyyy): ");
-            newDayOfBirth = scanner.nextLine();
-            flag = checkAge(newDayOfBirth);
-        } while (!flag);
-
+        String newDayOfBirth = inputOld();
         System.out.println("Enter gender: ");
         String newGender = scanner.nextLine();
         System.out.println("Enter number card: ");
@@ -128,36 +134,104 @@ public class EmployeeView {
         String newEmail = scanner.nextLine();
         System.out.println("Enter phone number: ");
         String newPhoneNumber = scanner.nextLine();
-        System.out.println("Enter degree: ");
-        String newDegree = scanner.nextLine();
-        System.out.println("Enter position: ");
-        String newPosition = scanner.nextLine();
+        String newDegree = choiceDegree();
+        String newPosition = choicePosition();
         System.out.println("Enter salary: ");
         int newSalary = Integer.parseInt(scanner.nextLine());
-        return new Employee(id, newName, newDayOfBirth, newGender,
-                newNumberCard, newEmail, newPhoneNumber, newDegree, newPosition, newSalary);
+        return new Employee(id, newName, newDayOfBirth, newGender,newNumberCard,
+                newEmail, newPhoneNumber, newDegree, newPosition, newSalary);
+//        }
+//        catch (NumberFormatException e) {
+//            System.err.println("Wrong format.");
+//        }
     }
 
-    private boolean checkAge(String dayOfBirth) {
-        if (dayOfBirth.matches(common.DATE_REGEX)) {
-            if (dayOfBirth.matches(common.DATE_FORMAT)) {
+    private String choiceDegree() {
+        System.out.println("DEGREE: \n" +
+                "1. Intermediate \n" +
+                "2. The Degree Of Associate\n" +
+                "3. College degree\n" +
+                "4. Postgraduate\n" +
+                "Enter choice: ");
+        int choice = Integer.parseInt(scanner.nextLine());
+
+        while (choice < 1 || choice > 4) {
+            System.out.println("Choice not true. Enter again choice: ");
+            choice = Integer.parseInt(scanner.nextLine());
+        }
+        switch (choice) {
+            case 1:
+                return "Intermediate";
+            case 2:
+                return "The Degree Of Associate";
+            case 3:
+                return "College degree";
+            case 4:
+                return "Postgraduate";
+        }
+        return "";
+    }
+
+    private String choicePosition() {
+        System.out.println("POSITION: \n" +
+                "1. Receptionist\n" +
+                "2. Service staff\n" +
+                "3. Expert\n" +
+                "4. Supervisor\n" +
+                "5. Manager\n" +
+                "6. General Manager\n" +
+                "Enter choice: ");
+        int choice = Integer.parseInt(scanner.nextLine());
+
+        while (choice < 1 || choice > 6) {
+            System.out.println("Choice not true. Enter again choice: ");
+            choice = Integer.parseInt(scanner.nextLine());
+        }
+        switch (choice) {
+            case 1:
+                return "Receptionist";
+            case 2:
+                return "Service staff";
+            case 3:
+                return "Expert";
+            case 4:
+                return "Supervisor";
+            case 5:
+                return "Manager";
+            case 6:
+                return "General Manager";
+        }
+        return "";
+    }
+
+    private String inputOld() {
+        String newDayOfBirth;
+        boolean flag;
+        do {
+            System.out.println("Enter Enter day of birth (dd/mm/yyyy): ");
+            newDayOfBirth = scanner.nextLine();
+            flag = isCheckOldEnough(newDayOfBirth);
+        } while (!flag);
+        return newDayOfBirth;
+    }
+
+    //kiểm tra đủ tuổi hay chưa
+    private boolean isCheckOldEnough(String dayOfBirth) {
+        if (dayOfBirth.matches(Regex.DATE_REGEX) &&dayOfBirth.matches(Regex.DATE_FORMAT)) {
 //              localDayOfBirth = LocalDate.parse(dayOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
                 LocalDate localDayOfBirth = LocalDate.parse(dayOfBirth, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                 LocalDate currentDay = LocalDate.now();
-                int age = Period.between(localDayOfBirth, currentDay).getYears();
-                if (age < 18) {
-                    System.out.println("You're under 18 years of age.");
+                int old = Period.between(localDayOfBirth, currentDay).getYears();
+                if (old < 18) {
+                    System.out.println("You're under 18 years old.");
                     return false;
-                } else if (age > 100) {
+                } else if (old > 100) {
                     System.out.println("You're over the age of 100.");
                     return false;
                 } else {
                     System.out.println("You are old enough.");
                     return true;
                 }
-            }
-            System.out.println("Invalid data.");
-            return false;
         }
         System.out.println("Invalid data");
         return false;

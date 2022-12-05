@@ -54,7 +54,7 @@ public class Employee extends Person {
     }
 
     @Override
-    public String writeInfor() {
-        return super.writeInfor() +","+ this.degree+","+ this.position+","+ this.salary;
+    public StringBuilder writeInfor() {
+        return new StringBuilder((super.writeInfor() + "," + this.degree + "," + this.position + "," + this.salary));
     }
 }

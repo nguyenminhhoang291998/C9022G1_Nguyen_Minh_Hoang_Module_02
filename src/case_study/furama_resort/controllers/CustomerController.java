@@ -7,10 +7,10 @@ import java.util.List;
 
 public class CustomerController {
 
-    CustomerServiceImpl customerServiceImpl = new CustomerServiceImpl();
+    private final CustomerServiceImpl customerServiceImpl = new CustomerServiceImpl();
 
-    public List<Customer> displayListCustomer() {
-        return this.customerServiceImpl.displayListCustomer();
+    public List<Customer> getListCustomer() {
+        return this.customerServiceImpl.getListCustomer();
     }
 
     public void addToListCustomer(Customer customer) {

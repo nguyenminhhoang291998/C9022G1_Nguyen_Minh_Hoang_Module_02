@@ -25,18 +25,26 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
 
-    public List<Employee> displayListEmployee() {
+    public List<Employee> getListEmployee() {
         return this.readFile();
     }
 
     @Override
     public void addData(Employee employee) {
+        if(isIDEmployeeAlreadyExists(employee.getId())){
+            System.out.println("The ID you want to add already exists.");
+            return;
+        }
         List<Employee> eplList = readFile();
         eplList.add(employee);
         writeFile(eplList);
     }
 
     public void deleteEmployee(int id) {
+        if(!isIDEmployeeAlreadyExists(id)){
+            System.out.println("The ID you want to delete dose not already exists.");
+            return;
+        }
         List<Employee> eplList = readFile();
         for (Employee employee : eplList) {
             if (employee.getId() == id) {
@@ -49,6 +57,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     public void editEmployee(Employee employee) {
+        if(!isIDEmployeeAlreadyExists(employee.getId())){
+            System.out.println("The ID you want to edit dose not already exists.");
+            return;
+        }
         List<Employee> eplList = readFile();
         for (Employee emp : eplList) {
             if (employee.getId() == emp.getId()) {
@@ -106,7 +118,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(PATH_FILE_EMPLOYEE));
             for (Employee employee: eplList) {
-                bufferedWriter.write(employee.writeInfor());
+                bufferedWriter.write(employee.writeInfor().toString());
                 bufferedWriter.newLine();
             }
             bufferedWriter.close();

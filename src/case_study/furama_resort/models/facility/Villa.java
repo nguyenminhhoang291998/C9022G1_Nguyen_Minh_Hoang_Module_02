@@ -43,6 +43,9 @@ public class Villa extends Facility{
               ", room Standards='" + roomStandards + '\'' +
               ", pool Area=" + poolArea + "m2" +
               ", floor Count=" + floorCount +
-              " }: Times of used" ;
+              " }, times of used: " ;
+   }
+   public String writeInfor(){
+      return super.writeInfor() + ","+this.roomStandards+ ","+this.poolArea+ ","+this.floorCount;
    }
 }

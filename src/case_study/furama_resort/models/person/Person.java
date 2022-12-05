@@ -91,7 +91,7 @@ public abstract class Person {
                 ", phone number='" + phoneNumber + '\'';
     }
 
-    public String writeInfor(){
-        return this.id + "," +this.name + "," +this.dayOfBirth + "," +this.gender + "," +this.numberCard + "," +this.email + "," +this.phoneNumber;
+    public StringBuilder writeInfor(){
+        return new StringBuilder(this.id + "," + this.name + "," + this.dayOfBirth + "," + this.gender + "," + this.numberCard + "," + this.email + "," + this.phoneNumber);
     }
 }

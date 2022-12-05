@@ -6,10 +6,10 @@ import case_study.furama_resort.services.impl.EmployeeServiceImpl;
 import java.util.List;
 
 public class EmployeeController {
-    EmployeeServiceImpl employeeServiceImpl = new EmployeeServiceImpl();
+    private final EmployeeServiceImpl employeeServiceImpl = new EmployeeServiceImpl();
 
-    public List<Employee> displayListEmployee() {
-        return this.employeeServiceImpl.displayListEmployee();
+    public List<Employee> getListEmployee() {
+        return this.employeeServiceImpl.getListEmployee();
     }
 
     public void addToListEmployee(Employee employee) {
