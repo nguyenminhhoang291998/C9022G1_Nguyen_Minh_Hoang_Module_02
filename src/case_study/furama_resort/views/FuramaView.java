@@ -1,5 +1,7 @@
 package case_study.furama_resort.views;
 
+import case_study.furama_resort.common.UserException;
+
 import java.util.Scanner;
 
 public class FuramaView {
@@ -12,7 +14,7 @@ public class FuramaView {
 
     private final Scanner scanner = new Scanner(System.in);
 
-    public void displayMainMenu() {
+    public void displayMainMenu() throws  UserException {
         do {
             mainMenu();
             int choice = Integer.parseInt(scanner.nextLine());

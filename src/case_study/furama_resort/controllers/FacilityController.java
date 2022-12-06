@@ -8,7 +8,7 @@ import java.util.Map;
 public class FacilityController {
     private final FacilityServiceImpl facilityServiceImpl = new FacilityServiceImpl();
 
-    public Map<Facility,Integer> getListFacility() {
+    public Map<Facility, Integer> getListFacility() {
         return this.facilityServiceImpl.getListFacility();
     }
 
@@ -17,10 +17,10 @@ public class FacilityController {
     }
 
     public void addToListFacility(Facility facility) {
-        this.facilityServiceImpl.addData(facility);
+            this.facilityServiceImpl.addData(facility);
     }
 
-    public Map<Facility,Integer> getFacilityMaintenance() {
+    public Map<Facility, Integer> getFacilityMaintenance() {
         return this.facilityServiceImpl.getFacilityMaintenance();
     }
 

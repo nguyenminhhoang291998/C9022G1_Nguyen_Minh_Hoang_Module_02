@@ -1,6 +1,8 @@
 package case_study.furama_resort.views;
 
+import case_study.furama_resort.common.NotFoundException;
 import case_study.furama_resort.common.Regex;
+import case_study.furama_resort.common.UserException;
 import case_study.furama_resort.controllers.EmployeeController;
 import case_study.furama_resort.models.person.Employee;
 
@@ -26,7 +28,11 @@ public class EmployeeView {
                     addToListEmployee();
                     break;
                 case 3:
-                    deleteInListEmployee();
+                    try {
+                        deleteInListEmployee();
+                        } catch (NotFoundException e) {
+                        System.err.println(e.getMessage());
+                        }
                     break;
                 case 4:
                     editListEmployee();
@@ -62,24 +68,27 @@ public class EmployeeView {
 
     private void addToListEmployee() {
         do {
-            System.out.println("Enter the ID you wish to add: ");
-            int id = Integer.parseInt(scanner.nextLine());
-            boolean isIDEmployeeAlreadyExists = this.employeeController.isIDEmployeeAlreadyExists(id);
+            try {
+                System.out.println("Enter the ID you wish to add: ");
+                int id = Integer.parseInt(scanner.nextLine());
+                boolean isIDEmployeeAlreadyExists = this.employeeController.isIDEmployeeAlreadyExists(id);
 
-            if (isIDEmployeeAlreadyExists) {
-                System.out.print("Id already exists. ");
-            } else {
-                Employee newEmployee = newEmployee(id);
-                this.employeeController.addToListEmployee(newEmployee);
-                System.out.println("Successful add.");
-                break;
+                if (isIDEmployeeAlreadyExists) {
+                    System.out.print("Id already exists. ");
+                } else {
+                    Employee newEmployee = newEmployee(id);
+                    this.employeeController.addToListEmployee(newEmployee);
+                    System.out.println("Successful add.");
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.err.println(e.getMessage());
             }
-
         } while (true);
     }
 
 
-    private void deleteInListEmployee() {
+    private void deleteInListEmployee() throws NotFoundException {
         if (this.employeeController.getListEmployee().isEmpty()) {
             System.out.println("List employee is empty. You can't delete.");
             return;
@@ -90,7 +99,7 @@ public class EmployeeView {
             boolean isIDEmployeeAlreadyExists = this.employeeController.isIDEmployeeAlreadyExists(id);
 
             if (!isIDEmployeeAlreadyExists) {
-                System.out.print("The ID you want to delete does not already exist. ");
+                throw new NotFoundException();
             } else {
                 this.employeeController.deleteInListEmployee(id);
                 System.out.println("Successful delete.");
@@ -105,24 +114,29 @@ public class EmployeeView {
             System.out.println("List employee is empty. You can't edit.");
             return;
         }
-        do {
-            System.out.println("Enter the ID you wish to edit: ");
-            int id = Integer.parseInt(scanner.nextLine());
-            boolean isIDEmployeeAlreadyExists = this.employeeController.isIDEmployeeAlreadyExists(id);
 
-            if (!isIDEmployeeAlreadyExists) {
-                System.out.print("The ID you want to edit does not already exist. ");
-            } else {
-                Employee editEmployee = newEmployee(id);
-                this.employeeController.editListEmployee(editEmployee);
-                System.out.println("Successful edit.");
-                break;
+        do {
+            try {
+                System.out.println("Enter the ID you wish to edit: ");
+                int id = Integer.parseInt(scanner.nextLine());
+                boolean isIDEmployeeAlreadyExists = this.employeeController.isIDEmployeeAlreadyExists(id);
+
+                if (!isIDEmployeeAlreadyExists) {
+                    System.out.print("The ID you want to edit does not already exist. ");
+                } else {
+                    Employee editEmployee = newEmployee(id);
+                    this.employeeController.editListEmployee(editEmployee);
+                    System.out.println("Successful edit.");
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.err.println(e.getMessage());
             }
         } while (true);
+
     }
 
     private Employee newEmployee(int id) {
-//        try {
         System.out.println("Enter name: ");
         String newName = scanner.nextLine();
         String newDayOfBirth = inputOld();
@@ -138,12 +152,9 @@ public class EmployeeView {
         String newPosition = choicePosition();
         System.out.println("Enter salary: ");
         int newSalary = Integer.parseInt(scanner.nextLine());
-        return new Employee(id, newName, newDayOfBirth, newGender,newNumberCard,
+
+        return new Employee(id, newName, newDayOfBirth, newGender, newNumberCard,
                 newEmail, newPhoneNumber, newDegree, newPosition, newSalary);
-//        }
-//        catch (NumberFormatException e) {
-//            System.err.println("Wrong format.");
-//        }
     }
 
     private String choiceDegree() {
@@ -217,26 +228,31 @@ public class EmployeeView {
 
     //kiểm tra đủ tuổi hay chưa
     private boolean isCheckOldEnough(String dayOfBirth) {
-        if (dayOfBirth.matches(Regex.DATE_REGEX) &&dayOfBirth.matches(Regex.DATE_FORMAT)) {
+        if (dayOfBirth.matches(Regex.DATE_REGEX) && dayOfBirth.matches(Regex.DATE_FORMAT)) {
 //              localDayOfBirth = LocalDate.parse(dayOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                LocalDate localDayOfBirth = LocalDate.parse(dayOfBirth, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                LocalDate currentDay = LocalDate.now();
-                int old = Period.between(localDayOfBirth, currentDay).getYears();
-                if (old < 18) {
-                    System.out.println("You're under 18 years old.");
-                    return false;
-                } else if (old > 100) {
-                    System.out.println("You're over the age of 100.");
-                    return false;
-                } else {
-                    System.out.println("You are old enough.");
-                    return true;
-                }
+            LocalDate localDayOfBirth = LocalDate.parse(dayOfBirth, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            LocalDate currentDay = LocalDate.now();
+            int old = Period.between(localDayOfBirth, currentDay).getYears();
+            try {
+                checkOldException(old);
+                return true;
+            } catch (UserException userException) {
+                System.err.println(userException.getMessage());
+            }
         }
         System.out.println("Invalid data");
         return false;
     }
 
+    private void checkOldException(int old) throws UserException {
+        if (old < 18) {
+            throw new UserException("You're under 18 years old.");
+        } else if (old > 100) {
+            throw new UserException("You're over the age of 100.");
+        } else {
+            System.out.println("You are old enough.");
+        }
+    }
 }
 
 

@@ -1,6 +1,7 @@
 package case_study.furama_resort.views;
 
 import case_study.furama_resort.common.Regex;
+import case_study.furama_resort.common.UserException;
 import case_study.furama_resort.controllers.CustomerController;
 import case_study.furama_resort.models.person.Customer;
 
@@ -14,7 +15,7 @@ public class CustomerView {
     private static final Scanner scanner = new Scanner(System.in);
     private final CustomerController customerController = new CustomerController();
 
-    public void displayCustomerManagement() {
+    public void displayCustomerManagement() throws UserException {
         do {
             menuCustomerManagement();
             int choice = Integer.parseInt(scanner.nextLine());
@@ -45,6 +46,7 @@ public class CustomerView {
                 "4.\tReturn main menu \n" +
                 "Enter choice: ");
     }
+
     private void displayListCustomer() {
         List<Customer> customerList = this.customerController.getListCustomer();
 
@@ -54,26 +56,32 @@ public class CustomerView {
         }
     }
 
-    private void addToListCustomer() {
+    private void addToListCustomer() throws  UserException {
         do {
-            System.out.println("Enter the ID you wish to add: ");
-            int id = Integer.parseInt(scanner.nextLine());
-            boolean isIDCustomerAlreadyExists = this.customerController.isIDCustomerAlreadyExists(id);
+            try {
+                System.out.println("Enter the ID you wish to add: ");
+                int id = Integer.parseInt(scanner.nextLine());
+                boolean isIDCustomerAlreadyExists = this.customerController.isIDCustomerAlreadyExists(id);
 
-            if (isIDCustomerAlreadyExists) {
-                System.out.print("The ID you want to add already exists. ");
-            } else {
-                Customer newCustomer = newCustomer(id);
-                this.customerController.addToListCustomer(newCustomer);
-                System.out.println("Successful add.");
-                break;
+                if (isIDCustomerAlreadyExists) {
+                    System.out.print("The ID you want to add already exists. ");
+                } else {
+                    Customer newCustomer = newCustomer(id);
+                    this.customerController.addToListCustomer(newCustomer);
+                    System.out.println("Successful add.");
+                    break;
+                }
+            } catch (NumberFormatException e) {
+                System.err.println(e.getMessage());
+            }catch (UserException ex){
+                throw new UserException(ex.getMessage());
             }
 
         } while (true);
     }
 
-    private void editListCustomer() {
-        if(this.customerController.getListCustomer().isEmpty()){
+    private void editListCustomer() throws UserException {
+        if (this.customerController.getListCustomer().isEmpty()) {
             System.out.println("List customer is empty. You can't edit.");
             return;
         }
@@ -93,7 +101,7 @@ public class CustomerView {
         } while (true);
     }
 
-    private Customer newCustomer(int id) {
+    private Customer newCustomer(int id) throws UserException {
         System.out.println("Enter name: ");
         String newName = scanner.nextLine();
         String newDayOfBirth = inputOld();
@@ -105,29 +113,29 @@ public class CustomerView {
         String newEmail = scanner.nextLine();
         System.out.println("Enter phone number: ");
         String newPhoneNumber = scanner.nextLine();
-        String newType  = customerType();
+        String newType = customerType();
         System.out.println("Enter address: ");
         String newAddress = scanner.nextLine();
 
         return new Customer(id, newName, newDayOfBirth, newGender,
-                newNumberCard, newEmail, newPhoneNumber,newType,newAddress);
+                newNumberCard, newEmail, newPhoneNumber, newType, newAddress);
     }
 
-    private String customerType(){
+    private String customerType() {
         System.out.println("CUSTOMER TYPE: \n" +
                 "1. Diamond\n" +
                 "2. Platinum\n" +
-                "3. Gold\n"+
+                "3. Gold\n" +
                 "4. Silver\n" +
                 "5. Member\n" +
-                "Enter choice: " );
+                "Enter choice: ");
         int choice = Integer.parseInt(scanner.nextLine());
 
-        while (choice<1 || choice>5){
+        while (choice < 1 || choice > 5) {
             System.out.println("Choice not true. Enter again choice: ");
             choice = Integer.parseInt(scanner.nextLine());
         }
-        switch (choice){
+        switch (choice) {
             case 1:
                 return "Diamond";
             case 2:
@@ -141,7 +149,8 @@ public class CustomerView {
         }
         return "";
     }
-    private String inputOld(){
+
+    private String inputOld() {
         String newDayOfBirth;
         boolean flag;
         do {
@@ -151,25 +160,32 @@ public class CustomerView {
         } while (!flag);
         return newDayOfBirth;
     }
-    private boolean isCheckOldEnough(String dayOfBirth) {
-        if (dayOfBirth.matches(Regex.DATE_REGEX) &&dayOfBirth.matches(Regex.DATE_FORMAT)) {
+
+    private boolean isCheckOldEnough(String dayOfBirth){
+        if (dayOfBirth.matches(Regex.DATE_REGEX) && dayOfBirth.matches(Regex.DATE_FORMAT)) {
 //              localDayOfBirth = LocalDate.parse(dayOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                LocalDate localDayOfBirth = LocalDate.parse(dayOfBirth, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                LocalDate currentDay = LocalDate.now();
-                int old = Period.between(localDayOfBirth, currentDay).getYears();
-                if (old < 18) {
-                    System.out.println("You're under 18 years old.");
-                    return false;
-                } else if (old > 100) {
-                    System.out.println("You're over the age of 100.");
-                    return false;
-                } else {
-                    System.out.println("You are old enough.");
-                    return true;
-                }
+            LocalDate localDayOfBirth = LocalDate.parse(dayOfBirth, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            LocalDate currentDay = LocalDate.now();
+            int old = Period.between(localDayOfBirth, currentDay).getYears();
+            try {
+                checkOldException(old);
+                return true;
+            }catch (UserException e){
+                System.err.println(e.getMessage());
+            }
         }
         System.out.println("Invalid data");
         return false;
+    }
+
+    private void checkOldException(int old) throws UserException {
+        if (old < 18) {
+            throw new UserException("You're under 18 years old.");
+        } else if (old > 100) {
+            throw new UserException("You're over the age of 100.");
+        } else {
+            System.out.println("You are old enough.");
+        }
     }
 
 }

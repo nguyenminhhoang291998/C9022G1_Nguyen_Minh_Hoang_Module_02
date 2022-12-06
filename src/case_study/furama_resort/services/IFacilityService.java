@@ -9,4 +9,5 @@ public interface IFacilityService extends IService<Facility> {
     Map<Facility,Integer> getListFacility();
 
     Map<Facility,Integer> getFacilityMaintenance();
+
 }
