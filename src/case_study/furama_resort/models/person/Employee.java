@@ -41,9 +41,6 @@ public class Employee extends Person {
         this.position = position;
     }
 
-    public Employee() {
-    }
-
     @Override
     public String toString() {
         return "Employee{"+ super.toString() +

@@ -10,7 +10,7 @@ public abstract class Facility {
     private int maximumNumberOfPeople;
     private String typeHire;
 
-    public Facility(String idFacility, String nameFacility, float usableArea, float rentalCosts,
+    protected Facility(String idFacility, String nameFacility, float usableArea, float rentalCosts,
                     int maximumNumberOfPeople, String typeHire) {
         this.idFacility = idFacility;
         this.nameFacility = nameFacility;
@@ -68,17 +68,21 @@ public abstract class Facility {
         this.typeHire = typeHire;
     }
 
+
     @Override
     public String toString() {
-        return  "{ Name facility='" + nameFacility + '\'' +
+        return  "{ ID facility='" + idFacility + '\'' +
+                ", name facility='" + nameFacility + '\'' +
                 ", usable area=" + usableArea + "m2" +
                 ", rental costs=" + rentalCosts + "$"+
                 ", maximum number of people=" + maximumNumberOfPeople +
                 ", type hire='" + typeHire + '\'' ;
     }
 
-    public String writeInfor(){
-        return this.idFacility+ ","+this.nameFacility + ","+this.usableArea + ","+this.rentalCosts + ","+this.maximumNumberOfPeople + ","+this.typeHire;
+    public StringBuilder writeInfor(){
+        return new StringBuilder().append(this.idFacility).append(",").append(this.nameFacility).append(",").
+                append(this.usableArea).append(",").append(this.rentalCosts).append(",").
+                append(this.maximumNumberOfPeople).append(",").append(this.typeHire);
     }
 
     @Override

@@ -1,12 +1,13 @@
 package case_study.furama_resort.controllers;
 
 import case_study.furama_resort.models.facility.Facility;
+import case_study.furama_resort.services.IFacilityService;
 import case_study.furama_resort.services.impl.FacilityServiceImpl;
 
 import java.util.Map;
 
 public class FacilityController {
-    private final FacilityServiceImpl facilityServiceImpl = new FacilityServiceImpl();
+    private final IFacilityService facilityServiceImpl = new FacilityServiceImpl();
 
     public Map<Facility, Integer> getListFacility() {
         return this.facilityServiceImpl.getListFacility();

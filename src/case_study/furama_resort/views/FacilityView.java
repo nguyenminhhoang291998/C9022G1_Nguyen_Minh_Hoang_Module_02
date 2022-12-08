@@ -48,6 +48,10 @@ public class FacilityView {
 
     private void displayListFacility() {
         Map<Facility, Integer> facilityList = this.facilityController.getListFacility();
+        if(facilityList.isEmpty()){
+            System.out.println("List facility is empty.");
+            return;
+        }
         Set<Map.Entry<Facility, Integer>> setFacilityList = facilityList.entrySet();
 
         System.out.println("-----------LIST FACILITY------------");
@@ -57,8 +61,12 @@ public class FacilityView {
     }
 
     private void displayListFacilityMaintenance() {
-        Map<Facility, Integer> facilityList = this.facilityController.getFacilityMaintenance();
-        Set<Map.Entry<Facility, Integer>> setFacilityMaintenanceList = facilityList.entrySet();
+        Map<Facility, Integer> facilityListMaintenance = this.facilityController.getFacilityMaintenance();
+        if(facilityListMaintenance.isEmpty()){
+            System.out.println("List facility maintenance is empty.");
+            return;
+        }
+        Set<Map.Entry<Facility, Integer>> setFacilityMaintenanceList = facilityListMaintenance.entrySet();
 
         System.out.println("-----------LIST FACILITY MAINTENANCE------------");
         for (Map.Entry<Facility, Integer> i : setFacilityMaintenanceList) {
@@ -90,7 +98,7 @@ public class FacilityView {
 
     private void addNewVilla() {
         System.out.println("Enter the ID you wish to add (SVVL-XXXX): ");
-        String idFacility = checkRegex(Regex.ID_VILLA_REGEX);
+        String idFacility = Regex.inputAndCheckRegex(Regex.ID_VILLA_REGEX);
         boolean isIDEmployeeAlreadyExists = this.facilityController.isIDFacilityAlreadyExists(idFacility);
 
         if (isIDEmployeeAlreadyExists) {
@@ -104,7 +112,7 @@ public class FacilityView {
 
     private void addNewRoom() {
         System.out.println("Enter the ID you wish to add (SVRO-XXXX) : ");
-        String idFacility = checkRegex(Regex.ID_ROOM_REGEX);
+        String idFacility = Regex.inputAndCheckRegex(Regex.ID_ROOM_REGEX);
         boolean isIDEmployeeAlreadyExists = this.facilityController.isIDFacilityAlreadyExists(idFacility);
 
         if (isIDEmployeeAlreadyExists) {
@@ -118,37 +126,37 @@ public class FacilityView {
 
     private Villa getInformationNewVilla(String newIDFacility) {
         System.out.println("Enter name villa: ");
-        String newNameFacility = checkRegex(Regex.NAME_REGEX);
+        String newNameVilla = Regex.inputAndCheckRegex(Regex.NAME_REGEX);
         System.out.println("Enter usable area(m2): ");
-        float newUsableArea = Float.parseFloat(checkRegex(Regex.AREA_REGEX));
+        float newUsableArea = Float.parseFloat(Regex.inputAndCheckRegex(Regex.AREA_REGEX));
         System.out.println("Enter rental costs($): ");
-        float newRentalCosts = Float.parseFloat(checkRegex(Regex.RENTAL_COSTS_REGEX));
+        float newRentalCosts = Float.parseFloat(Regex.inputAndCheckRegex(Regex.RENTAL_COSTS_REGEX));
         System.out.println("Enter maximum number of people:  ");
-        int newMaximumNumberOfPeople = Integer.parseInt(checkRegex(Regex.MAXIMUM_NUMBER_OF_PEOPLE_REGEX));
+        int newMaximumNumberOfPeople = Integer.parseInt(Regex.inputAndCheckRegex(Regex.MAXIMUM_NUMBER_OF_PEOPLE_REGEX));
         System.out.println("Enter type hire: ");
-        String newTypeHire = checkRegex(Regex.NAME_REGEX);
+        String newTypeHire = Regex.inputAndCheckRegex(Regex.NAME_REGEX);
         System.out.println("Enter room standards: ");
-        String newRoomStandards = checkRegex(Regex.NAME_REGEX);
+        String newRoomStandards = Regex.inputAndCheckRegex(Regex.NAME_REGEX);
         System.out.println("Enter pool area(m2): ");
-        float newPoolArea = Float.parseFloat(checkRegex(Regex.AREA_REGEX));
+        float newPoolArea = Float.parseFloat(Regex.inputAndCheckRegex(Regex.AREA_REGEX));
         System.out.println("Enter floor count: ");
-        int newFloorCount = Integer.parseInt(checkRegex(Regex.FLOOR_COUNT));
+        int newFloorCount = Integer.parseInt(Regex.inputAndCheckRegex(Regex.FLOOR_COUNT));
 
-        return new Villa(newIDFacility, newNameFacility, newUsableArea, newRentalCosts,
+        return new Villa(newIDFacility, newNameVilla, newUsableArea, newRentalCosts,
                 newMaximumNumberOfPeople, newTypeHire, newRoomStandards, newPoolArea, newFloorCount);
     }
 
     private Room getInformationNewRoom(String newIDFacility) {
         System.out.println("Enter name room: ");
-        String newNameRoom = checkRegex(Regex.NAME_REGEX);
+        String newNameRoom = Regex.inputAndCheckRegex(Regex.NAME_REGEX);
         System.out.println("Enter usable area(m2): ");
-        float newUsableArea = Float.parseFloat(checkRegex(Regex.AREA_REGEX));
+        float newUsableArea = Float.parseFloat(Regex.inputAndCheckRegex(Regex.AREA_REGEX));
         System.out.println("Enter rental costs($): ");
-        float newRentalCosts = Float.parseFloat(checkRegex(Regex.RENTAL_COSTS_REGEX));
+        float newRentalCosts = Float.parseFloat(Regex.inputAndCheckRegex(Regex.RENTAL_COSTS_REGEX));
         System.out.println("Enter maximum number of people: ");
-        int newMaximumNumberOfPeople = Integer.parseInt(checkRegex(Regex.MAXIMUM_NUMBER_OF_PEOPLE_REGEX));
+        int newMaximumNumberOfPeople = Integer.parseInt(Regex.inputAndCheckRegex(Regex.MAXIMUM_NUMBER_OF_PEOPLE_REGEX));
         System.out.println("Enter type hire: ");
-        String newTypeHire = checkRegex(Regex.NAME_REGEX);
+        String newTypeHire = Regex.inputAndCheckRegex(Regex.NAME_REGEX);
         System.out.println("Enter free service: ");
         String newFreeService = scanner.nextLine();
 
@@ -156,14 +164,5 @@ public class FacilityView {
                 newMaximumNumberOfPeople, newTypeHire, newFreeService);
     }
 
-    private String checkRegex(String regex) {
-        boolean flag;
-        String o;
-        do {
-            o = scanner.nextLine();
-            flag = o.matches(regex);
-            if (!flag) System.out.print("Invalid data. Enter again: ");
-        } while (!flag);
-        return o;
-    }
+
 }

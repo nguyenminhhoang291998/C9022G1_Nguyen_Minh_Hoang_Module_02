@@ -50,6 +50,11 @@ public class CustomerView {
     private void displayListCustomer() {
         List<Customer> customerList = this.customerController.getListCustomer();
 
+        if(customerList.isEmpty()){
+            System.out.println("List customer is empty.");
+            return;
+        }
+
         System.out.println("-----------LIST CUSTOMER------------");
         for (Customer customer : customerList) {
             System.out.println(customer);
@@ -61,6 +66,10 @@ public class CustomerView {
             try {
                 System.out.println("Enter the ID you wish to add: ");
                 int id = Integer.parseInt(scanner.nextLine());
+                while (id<=0){
+                    System.out.println("ID always greater than 0. Enter id again: ");
+                    id = Integer.parseInt(scanner.nextLine());
+                }
                 boolean isIDCustomerAlreadyExists = this.customerController.isIDCustomerAlreadyExists(id);
 
                 if (isIDCustomerAlreadyExists) {
@@ -73,10 +82,7 @@ public class CustomerView {
                 }
             } catch (NumberFormatException e) {
                 System.err.println(e.getMessage());
-            }catch (UserException ex){
-                throw new UserException(ex.getMessage());
             }
-
         } while (true);
     }
 
@@ -86,22 +92,26 @@ public class CustomerView {
             return;
         }
         do {
-            System.out.println("Enter the ID you wish to edit: ");
-            int id = Integer.parseInt(scanner.nextLine());
-            boolean isIDCustomerAlreadyExists = this.customerController.isIDCustomerAlreadyExists(id);
+            try {
+                System.out.println("Enter the ID you wish to edit: ");
+                int id = Integer.parseInt(scanner.nextLine());
+                boolean isIDCustomerAlreadyExists = this.customerController.isIDCustomerAlreadyExists(id);
 
-            if (!isIDCustomerAlreadyExists) {
-                System.out.print("The ID you want to edit does not already exist. ");
-            } else {
-                Customer editCustomer = newCustomer(id);
-                this.customerController.editListCustomer(editCustomer);
-                System.out.println("Successful edit.");
-                break;
+                if (!isIDCustomerAlreadyExists) {
+                    System.out.print("The ID you want to edit does not already exist. ");
+                } else {
+                    Customer editCustomer = newCustomer(id);
+                    this.customerController.editListCustomer(editCustomer);
+                    System.out.println("Successful edit.");
+                    break;
+                }
+            }catch (NumberFormatException e){
+                System.err.println(e.getMessage());
             }
         } while (true);
     }
 
-    private Customer newCustomer(int id) throws UserException {
+    private Customer newCustomer(int id) {
         System.out.println("Enter name: ");
         String newName = scanner.nextLine();
         String newDayOfBirth = inputOld();
@@ -162,7 +172,7 @@ public class CustomerView {
     }
 
     private boolean isCheckOldEnough(String dayOfBirth){
-        if (dayOfBirth.matches(Regex.DATE_REGEX) && dayOfBirth.matches(Regex.DATE_FORMAT)) {
+        if (Regex.checkDateFormat(dayOfBirth)) {
 //              localDayOfBirth = LocalDate.parse(dayOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             LocalDate localDayOfBirth = LocalDate.parse(dayOfBirth, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             LocalDate currentDay = LocalDate.now();

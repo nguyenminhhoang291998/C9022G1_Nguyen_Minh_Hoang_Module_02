@@ -11,4 +11,6 @@ public interface IEmployeeService extends IService<Employee>{
 
     List<Employee> getListEmployee();
 
+    boolean isIDEmployeeAlreadyExists(int id);
+
 }

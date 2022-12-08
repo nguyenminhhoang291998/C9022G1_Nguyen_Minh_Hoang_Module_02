@@ -9,10 +9,7 @@ public abstract class Person {
     private String email;
     private String phoneNumber;
 
-    public Person() {
-    }
-
-    public Person(int id,String name, String dayOfBirth, String gender, String numberCard, String email, String phoneNumber) {
+    protected Person(int id,String name, String dayOfBirth, String gender, String numberCard, String email, String phoneNumber) {
         this.id = id;
         this.name = name;
         this.dayOfBirth = dayOfBirth;
@@ -92,6 +89,8 @@ public abstract class Person {
     }
 
     public StringBuilder writeInfor(){
-        return new StringBuilder(this.id + "," + this.name + "," + this.dayOfBirth + "," + this.gender + "," + this.numberCard + "," + this.email + "," + this.phoneNumber);
+//        return new StringBuilder(this.id + "," + this.name + "," + this.dayOfBirth + "," + this.gender + "," + this.numberCard + "," + this.email + "," + this.phoneNumber);
+        return new StringBuilder().append(this.id).append(",").append(this.name).append(",").append(this.dayOfBirth).append(",").append(this.gender).append(",").
+                append(this.numberCard).append(",").append(this.email).append(",").append(this.phoneNumber);
     }
 }

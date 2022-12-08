@@ -1,12 +1,13 @@
 package case_study.furama_resort.controllers;
 
 import case_study.furama_resort.models.person.Employee;
+import case_study.furama_resort.services.IEmployeeService;
 import case_study.furama_resort.services.impl.EmployeeServiceImpl;
 
 import java.util.List;
 
 public class EmployeeController {
-    private final EmployeeServiceImpl employeeServiceImpl = new EmployeeServiceImpl();
+    private final IEmployeeService employeeServiceImpl = new EmployeeServiceImpl();
 
     public List<Employee> getListEmployee() {
         return this.employeeServiceImpl.getListEmployee();

@@ -45,14 +45,18 @@ public class EmployeeServiceImpl implements IEmployeeService {
             System.out.println("The ID you want to delete dose not already exists.");
             return;
         }
+        Employee employeeDelete = null;
         List<Employee> eplList = readFile();
         for (Employee employee : eplList) {
             if (employee.getId() == id) {
-                eplList.remove(employee);
+                employeeDelete = employee;
                 break;
             }
         }
-        writeFile(eplList);
+        if(employeeDelete!=null){
+            eplList.remove(employeeDelete);
+            writeFile(eplList);
+        }
     }
 
     @Override
@@ -76,8 +80,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 break;
             }
         }
+        writeFile(eplList);
     }
 
+    @Override
     public boolean isIDEmployeeAlreadyExists(int id) {
         List<Employee> eplList = readFile();
         for (Employee employee : eplList) {
@@ -87,7 +93,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
         }
         return false;
     }
-
 
     private List<Employee> readFile() {
         List<Employee> eplList = new ArrayList<>();
@@ -106,10 +111,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
             }
             bufferedReader.close();
         } catch (IOException e) {
-            System.err.println("File không tồn tại hoặc" +
-                    "nội dung có lỗi!");
-        } catch (Exception ex){
-            return eplList;
+            System.err.println("File không tồn tại hoặc nội dung có lỗi!");
         }
         return eplList;
     }

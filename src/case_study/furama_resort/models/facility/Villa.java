@@ -45,7 +45,8 @@ public class Villa extends Facility{
               ", floor Count=" + floorCount +
               " }, times of used: " ;
    }
-   public String writeInfor(){
-      return super.writeInfor() + ","+this.roomStandards+ ","+this.poolArea+ ","+this.floorCount;
+   public StringBuilder writeInfor(){
+      return super.writeInfor().append(",").append(this.roomStandards).append(",").
+              append(this.poolArea).append(",").append(this.floorCount);
    }
 }

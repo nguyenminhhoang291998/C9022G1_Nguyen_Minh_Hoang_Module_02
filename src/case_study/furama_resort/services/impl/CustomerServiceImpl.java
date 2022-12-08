@@ -40,6 +40,8 @@ public class CustomerServiceImpl implements ICustomerService {
         writeFile(ctmList);
     }
 
+
+
     @Override
     public void editCustomer(Customer customer) {
         if(!isIDCustomerAlreadyExists(customer.getId())){
@@ -57,12 +59,13 @@ public class CustomerServiceImpl implements ICustomerService {
                 ctm.setEmail(customer.getEmail());
                 ctm.setType(customer.getType());
                 ctm.setAddress(customer.getAddress());
+                writeFile(ctmList);
                 break;
             }
         }
-        writeFile(ctmList);
     }
 
+    @Override
     public boolean isIDCustomerAlreadyExists(int id) {
         List<Customer> ctmList = readFile();
         for (Customer customer : ctmList) {
@@ -89,11 +92,11 @@ public class CustomerServiceImpl implements ICustomerService {
             }
             bufferedReader.close();
         } catch (IOException e) {
-            System.err.println("File không tồn tại hoặc" +
-                    "nội dung có lỗi!");
-        } catch (Exception ex){
-            return ctmList;
+            System.err.println("File không tồn tại hoặc nội dung có lỗi!");
         }
+//        catch (Exception ex){
+//            return ctmList;
+//        }
         return ctmList;
     }
 

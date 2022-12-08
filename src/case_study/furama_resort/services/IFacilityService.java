@@ -10,4 +10,6 @@ public interface IFacilityService extends IService<Facility> {
 
     Map<Facility,Integer> getFacilityMaintenance();
 
+    public boolean isIDFacilityAlreadyExists(String idFacility);
+
 }

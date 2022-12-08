@@ -9,4 +9,6 @@ public interface ICustomerService extends IService<Customer>{
 
     void editCustomer(Customer customer);
 
+    boolean isIDCustomerAlreadyExists(int id);
+
 }

@@ -1,5 +1,7 @@
 package case_study.furama_resort.common;
 
+import java.util.Scanner;
+
 public class Regex {
 
     public static final String ID_VILLA_REGEX = "^SVVL-\\d{4}$";
@@ -30,7 +32,24 @@ public class Regex {
             "(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$";
     // - kiểm tra ngày theo năm nhuận và không nhuận
 
-    public static final String DATE_FORMAT = "\\d{2}[/]\\d{2}[/]\\d{4}";
+    public static final String DATE_FORMAT = "\\d{2}/\\d{2}/\\d{4}";
     // - check date bắt buộc đủ format
 
+    public static boolean checkDateFormat(String date){
+        return (date.matches(DATE_REGEX) && date.matches(DATE_FORMAT));
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    //check regex
+    public static String inputAndCheckRegex(String regex) {
+        boolean flag;
+        String o;
+        do {
+            o = scanner.nextLine();
+            flag = o.matches(regex);
+            if (!flag) System.out.print("Invalid data. Enter again: ");
+        } while (!flag);
+        return o;
+    }
 }

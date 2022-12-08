@@ -1,13 +1,14 @@
 package case_study.furama_resort.controllers;
 
 import case_study.furama_resort.models.person.Customer;
+import case_study.furama_resort.services.ICustomerService;
 import case_study.furama_resort.services.impl.CustomerServiceImpl;
 
 import java.util.List;
 
 public class CustomerController {
 
-    private final CustomerServiceImpl customerServiceImpl = new CustomerServiceImpl();
+    private final ICustomerService customerServiceImpl = new CustomerServiceImpl();
 
     public List<Customer> getListCustomer() {
         return this.customerServiceImpl.getListCustomer();

@@ -24,7 +24,7 @@ public class Room extends Facility {
                 "}, times of used: " ;
     }
 
-    public String writeInfor(){
-        return super.writeInfor() + ","+this.freeService;
+    public StringBuilder writeInfor(){
+        return super.writeInfor().append(",").append(this.freeService);
     }
 }

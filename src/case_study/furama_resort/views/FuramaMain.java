@@ -7,6 +7,6 @@ public class FuramaMain {
     private static final FuramaView furamaView = new FuramaView();
 
     public static void main(String[] args) throws  UserException {
-         furamaView.displayMainMenu();
+            furamaView.displayMainMenu();
     }
 }

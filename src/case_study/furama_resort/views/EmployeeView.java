@@ -30,9 +30,9 @@ public class EmployeeView {
                 case 3:
                     try {
                         deleteInListEmployee();
-                        } catch (NotFoundException e) {
+                    } catch (NotFoundException e) {
                         System.err.println(e.getMessage());
-                        }
+                    }
                     break;
                 case 4:
                     editListEmployee();
@@ -58,6 +58,10 @@ public class EmployeeView {
 
     private void displayListEmployee() {
         List<Employee> employeeList = this.employeeController.getListEmployee();
+        if(employeeList.isEmpty()){
+            System.out.println("List Employee is empty.");
+            return;
+        }
 
         System.out.println("-----------LIST EMPLOYEE------------");
         for (Employee employee : employeeList) {
@@ -71,6 +75,10 @@ public class EmployeeView {
             try {
                 System.out.println("Enter the ID you wish to add: ");
                 int id = Integer.parseInt(scanner.nextLine());
+                while (id<=0){
+                    System.out.println("ID always greater than 0. Enter id again: ");
+                    id = Integer.parseInt(scanner.nextLine());
+                }
                 boolean isIDEmployeeAlreadyExists = this.employeeController.isIDEmployeeAlreadyExists(id);
 
                 if (isIDEmployeeAlreadyExists) {
@@ -93,20 +101,18 @@ public class EmployeeView {
             System.out.println("List employee is empty. You can't delete.");
             return;
         }
-        do {
-            System.out.println("Enter the ID you wish to delete: ");
-            int id = Integer.parseInt(scanner.nextLine());
-            boolean isIDEmployeeAlreadyExists = this.employeeController.isIDEmployeeAlreadyExists(id);
 
-            if (!isIDEmployeeAlreadyExists) {
-                throw new NotFoundException();
-            } else {
-                this.employeeController.deleteInListEmployee(id);
-                System.out.println("Successful delete.");
-                break;
-            }
+        System.out.println("Enter the ID you wish to delete: ");
+        int id = Integer.parseInt(scanner.nextLine());
+        boolean isIDEmployeeAlreadyExists = this.employeeController.isIDEmployeeAlreadyExists(id);
 
-        } while (true);
+        if (!isIDEmployeeAlreadyExists) {
+            throw new NotFoundException();
+        } else {
+            this.employeeController.deleteInListEmployee(id);
+            System.out.println("Successful delete.");
+        }
+
     }
 
     private void editListEmployee() {
@@ -228,8 +234,7 @@ public class EmployeeView {
 
     //kiểm tra đủ tuổi hay chưa
     private boolean isCheckOldEnough(String dayOfBirth) {
-        if (dayOfBirth.matches(Regex.DATE_REGEX) && dayOfBirth.matches(Regex.DATE_FORMAT)) {
-//              localDayOfBirth = LocalDate.parse(dayOfBirth, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        if (Regex.checkDateFormat(dayOfBirth)) {
             LocalDate localDayOfBirth = LocalDate.parse(dayOfBirth, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             LocalDate currentDay = LocalDate.now();
             int old = Period.between(localDayOfBirth, currentDay).getYears();
